@@ -216,5 +216,14 @@ doc_events = {
         "after_delete": "frappe_whatsapp.utils.run_server_script_for_doc_event",
         "before_update_after_submit": "frappe_whatsapp.utils.run_server_script_for_doc_event",
         "on_update_after_submit": "frappe_whatsapp.utils.run_server_script_for_doc_event"
+    },
+    "DocType": {
+        "on_update": "frappe_whatsapp.utils.clear_doctype_cache",
+        "after_delete": "frappe_whatsapp.utils.clear_doctype_cache"
     }
 }
+
+# Include JS files
+app_include_js = [
+    "/assets/frappe_whatsapp/js/frappe_whatsapp.js"
+]

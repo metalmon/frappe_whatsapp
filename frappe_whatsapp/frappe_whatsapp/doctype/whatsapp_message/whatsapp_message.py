@@ -11,7 +11,20 @@ class WhatsAppMessage(Document):
 
     def before_insert(self):
         """Send message."""
-        if self.type == "Outgoing" and self.message_type != "Template":
+        if hasattr(self, "flags") and self.flags.skip_before_insert:
+            return
+            
+        if self.type == "Outgoing":
+            # For template messages, use send_template
+            if self.use_template or self.message_type == "Template":
+                if not self.message_id:  # Only send if not already sent
+                    self.send_template()
+                return
+            
+            # For non-template messages
+            if not self.message and self.content_type == "text":
+                frappe.throw("Message text is required for non-template messages")
+            
             if self.attach and not self.attach.startswith("http"):
                 link = frappe.utils.get_url() + "/" + self.attach
             else:
@@ -36,7 +49,6 @@ class WhatsAppMessage(Document):
                 }
             elif self.content_type == "text":
                 data["text"] = {"preview_url": True, "body": self.message}
-
             elif self.content_type == "audio":
                 data["text"] = {"link": link}
 
@@ -46,64 +58,67 @@ class WhatsAppMessage(Document):
             except Exception as e:
                 self.status = "Failed"
                 frappe.throw(f"Failed to send message {str(e)}")
-        elif self.type == "Outgoing" and self.message_type == "Template" and not self.message_id:
-            self.send_template()
 
     def send_template(self):
         """Send template."""
-        template = frappe.get_doc("WhatsApp Templates", self.template)
-        data = {
-            "messaging_product": "whatsapp",
-            "to": self.format_number(self.to),
-            "type": "template",
-            "template": {
-                "name": template.actual_name or template.template_name,
-                "language": {"code": template.language_code},
-                "components": [],
-            },
-        }
+        try:
+            template = frappe.get_doc("WhatsApp Templates", self.template)
+            data = {
+                "messaging_product": "whatsapp",
+                "to": self.format_number(self.to),
+                "type": "template",
+                "template": {
+                    "name": template.actual_name or template.template_name,
+                    "language": {"code": template.language_code},
+                    "components": [],
+                },
+            }
 
-        if template.sample_values:
-            field_names = template.field_names.split(",") if template.field_names else template.sample_values.split(",")
-            parameters = []
-            template_parameters = []
+            if template.sample_values:
+                field_names = template.field_names.split(",") if template.field_names else template.sample_values.split(",")
+                parameters = []
+                template_parameters = []
 
-            ref_doc = frappe.get_doc(self.reference_doctype, self.reference_name)
-            for field_name in field_names:
-                value = ref_doc.get_formatted(field_name.strip())
+                ref_doc = frappe.get_doc(self.reference_doctype, self.reference_name)
+                for field_name in field_names:
+                    value = ref_doc.get_formatted(field_name.strip())
 
-                parameters.append({"type": "text", "text": value})
-                template_parameters.append(value)
+                    parameters.append({"type": "text", "text": value})
+                    template_parameters.append(value)
 
-            self.template_parameters = json.dumps(template_parameters)
+                self.template_parameters = json.dumps(template_parameters)
 
-            data["template"]["components"].append(
-                {
-                    "type": "body",
-                    "parameters": parameters,
-                }
-            )
+                data["template"]["components"].append(
+                    {
+                        "type": "body",
+                        "parameters": parameters,
+                    }
+                )
 
-        if template.header_type and template.sample:
-            field_names = template.sample.split(",")
-            header_parameters = []
-            template_header_parameters = []
+            if template.header_type and template.sample:
+                field_names = template.sample.split(",")
+                header_parameters = []
+                template_header_parameters = []
 
-            ref_doc = frappe.get_doc(self.reference_doctype, self.reference_name)
-            for field_name in field_names:
-                value = ref_doc.get_formatted(field_name.strip())
-                
-                header_parameters.append({"type": "text", "text": value})
-                template_header_parameters.append(value)
+                ref_doc = frappe.get_doc(self.reference_doctype, self.reference_name)
+                for field_name in field_names:
+                    value = ref_doc.get_formatted(field_name.strip())
+                    
+                    header_parameters.append({"type": "text", "text": value})
+                    template_header_parameters.append(value)
 
-            self.template_header_parameters = json.dumps(template_header_parameters)
+                self.template_header_parameters = json.dumps(template_header_parameters)
 
-            data["template"]["components"].append({
-                "type": "header",
-                "parameters": header_parameters,
-            })
+                data["template"]["components"].append({
+                    "type": "header",
+                    "parameters": header_parameters,
+                })
 
-        self.notify(data)
+            self.notify(data)
+            self.status = "Success"
+        except Exception as e:
+            self.status = "Failed"
+            frappe.throw(f"Failed to send template message: {str(e)}")
 
     def notify(self, data):
         """Notify."""
@@ -153,6 +168,7 @@ def on_doctype_update():
 
 @frappe.whitelist()
 def send_template(to, reference_doctype, reference_name, template):
+    """Create WhatsApp message and enqueue sending."""
     try:
         doc = frappe.get_doc({
             "doctype": "WhatsApp Message",
@@ -162,9 +178,38 @@ def send_template(to, reference_doctype, reference_name, template):
             "reference_doctype": reference_doctype,
             "reference_name": reference_name,
             "content_type": "text",
-            "template": template
+            "template": template,
+            "status": "Queued"  # Add initial status
         })
-
-        doc.save()
+        
+        # Save without triggering before_insert
+        doc.flags.skip_before_insert = True
+        doc.insert(ignore_permissions=True)
+        
+        # Enqueue the sending task
+        frappe.enqueue(
+            method="frappe_whatsapp.frappe_whatsapp.doctype.whatsapp_message.whatsapp_message.process_whatsapp_message",
+            queue="now",  # Changed from 'short' to 'now' for immediate processing
+            timeout=300,
+            message_id=doc.name,
+            now=True  # Added to ensure immediate processing
+        )
+        return doc.name
     except Exception as e:
+        frappe.log_error("WhatsApp Message Creation Error", e)
         raise e
+
+def process_whatsapp_message(message_id):
+    """Background job to process and send WhatsApp message."""
+    try:
+        doc = frappe.get_doc("WhatsApp Message", message_id)
+        if doc.status != "Queued":
+            return
+            
+        doc.send_template()
+        doc.status = "Success"
+        doc.save(ignore_permissions=True)
+    except Exception as e:
+        frappe.log_error("WhatsApp Message Processing Error", e)
+        if frappe.db.exists("WhatsApp Message", message_id):
+            frappe.db.set_value("WhatsApp Message", message_id, "status", "Failed", update_modified=False)
