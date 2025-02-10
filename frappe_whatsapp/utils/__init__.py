@@ -2,6 +2,7 @@
 import frappe
 
 from frappe.core.doctype.server_script.server_script_utils import EVENT_MAP
+from frappe_whatsapp.utils.cache import clear_doctype_cache
 
 
 def run_server_script_for_doc_event(doc, event):

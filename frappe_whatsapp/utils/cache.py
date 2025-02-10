@@ -1,4 +1,4 @@
-"""Utility functions for Frappe WhatsApp."""
+"""Cache utility functions for Frappe WhatsApp."""
 
 import frappe
 
