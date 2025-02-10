@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Frappe Whatsapp VERSION\n"
 "Report-Msgid-Bugs-To: shridhar.p@zerodha.com\n"
 "POT-Creation-Date: 2025-02-10 06:33+0000\n"
-"PO-Revision-Date: 2025-02-10 09:49+0300\n"
+"PO-Revision-Date: 2025-02-10 17:39+0300\n"
 "Last-Translator: AlexKuzin <dev@olimpicfresh.ru>\n"
 "Language-Team: shridhar.p@zerodha.com\n"
 "Language: ru\n"
@@ -515,7 +515,7 @@ msgstr "Исходящие"
 #. Label of the phone_id (Data) field in DocType 'WhatsApp Settings'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
 msgid "Phone ID"
-msgstr "Телефонный идентификатор"
+msgstr "Phone ID"
 
 #. Label of the date_changed (Select) field in DocType 'WhatsApp Notification'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
