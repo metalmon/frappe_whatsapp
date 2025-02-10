@@ -1,0 +1,818 @@
+# Russian translations for Frappe Whatsapp.
+# Copyright (C) 2025 Shridhar Patil
+# This file is distributed under the same license as the Frappe Whatsapp project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Frappe Whatsapp VERSION\n"
+"Report-Msgid-Bugs-To: shridhar.p@zerodha.com\n"
+"POT-Creation-Date: 2025-02-10 06:33+0000\n"
+"PO-Revision-Date: 2025-02-10 09:49+0300\n"
+"Last-Translator: AlexKuzin <dev@olimpicfresh.ru>\n"
+"Language-Team: shridhar.p@zerodha.com\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Generated-By: Babel 2.13.1\n"
+"X-Generator: Poedit 3.5\n"
+
+#. Label of the attach_document_print (Check) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid " Attach Document Print"
+msgstr " Прикрепить печатный документ"
+
+#. Content of the 'help_html' (HTML) field in DocType 'WhatsApp Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid ""
+"<pre><code>doc.grand_total &gt; 0</code></pre>\n"
+"\n"
+"<p>Conditions should be written in simple Python. Please use properties available in the form only.</p>\n"
+"\n"
+"<p>Example: </p><pre><code>doc.status=='Enabled' </code></pre><p></p>\n"
+"\n"
+"<p> For scheduler events you can use follwing methods</p>\n"
+"<p>Allowed functions: </p><ul>\n"
+"<li>frappe.db.get_value</li>\n"
+"<li>frappe.db.get_list</li>\n"
+"<li>frappe.session</li>\n"
+"<li>frappe.utils.now_datetime</li>\n"
+"<li>frappe.utils.get_datetime</li>\n"
+"<li>frappe.utils.add_to_date</li>\n"
+"<li>frappe.utils.now</li>\n"
+"</ul>\n"
+"<p>Example: </p><pre><code>doc.creation &gt; frappe.utils.add_to_date(frappe.utils.now_datetime(\n"
+"), days=-5, as_string=True, as_datetime=True) </code></pre><p></p>\n"
+"\n"
+"<p>\n"
+"\t<b>\n"
+"\t\tFinally set the contact list to send messages. This should be set only in case of scheduled events.\n"
+"\t</b>\n"
+"<br>\n"
+"doc._contact_list = [\"919123456789\"]\n"
+"</p> "
+msgstr ""
+"<pre><code>doc.grand_total &gt; 0</code></pre>\n"
+"\n"
+"<p>Условия должны быть написаны на простом языке Python. Пожалуйста, используйте только свойства, доступные в форме.</p>\n"
+"\n"
+"<p>Пример: </p><pre><code>doc.status=='Enabled' </code></pre><p></p>\n"
+"\n"
+"<p> Для событий планировщика Вы можете использовать следующие методы</p>\n"
+"<p>Разрешенные функции: </p><ul>\n"
+"<li>frappe.db.get_value</li>\n"
+"<li>frappe.db.get_list</li>\n"
+"<li>frappe.session</li>\n"
+"<li>frappe.utils.now_datetime</li>\n"
+"<li>frappe.utils.get_datetime</li>\n"
+"<li>frappe.utils.add_to_date</li>\n"
+"<li>frappe.utils.now</li>\n"
+"</ul>\n"
+"<p>Пример: </p><pre><code>doc.creation &gt; frappe.utils.add_to_date(frappe.utils.now_datetime(\n"
+"), days=-5, as_string=True, as_datetime=True) </code></pre><p></p>\n"
+"\n"
+"<p>\n"
+"\t<b>\n"
+"\t\tНаконец, установите список контактов для отправки сообщений. Этот параметр должен быть задан только в случае запланированных событий.\n"
+"\t</b>\n"
+"<br>\n"
+"doc._contact_list = [\"919123456789\"]\n"
+"</p> "
+
+#. Option for the 'Category' (Select) field in DocType 'WhatsApp Templates'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
+msgid "AUTHENTICATION"
+msgstr "AUTHENTICATION"
+
+#. Option for the 'DocType Event' (Select) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "After Cancel"
+msgstr "После отмены"
+
+#. Option for the 'DocType Event' (Select) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "After Delete"
+msgstr "После удаления"
+
+#. Option for the 'DocType Event' (Select) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "After Insert"
+msgstr "После вставки"
+
+#. Option for the 'DocType Event' (Select) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "After Save"
+msgstr "После сохранения"
+
+#. Option for the 'DocType Event' (Select) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "After Save (Submitted Document)"
+msgstr "После сохранения (проведенный документ)"
+
+#. Option for the 'DocType Event' (Select) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "After Submit"
+msgstr "После проведения"
+
+#. Option for the 'Event Frequency' (Select) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "All"
+msgstr "Все"
+
+#. Label of the app_id (Data) field in DocType 'WhatsApp Settings'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
+msgid "App ID"
+msgstr "App ID"
+
+#. Label of the attach (Attach) field in DocType 'WhatsApp Message'
+#. Label of the attach (Attach) field in DocType 'WhatsApp Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Attach"
+msgstr "Прикрепить"
+
+#. Label of the attach_from_field (Data) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Attach from field "
+msgstr "Прикрепить с поля"
+
+#. Description of the 'Attach from field ' (Data) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Attach media from doctype field"
+msgstr "Прикрепите мультимедиа из поля доктайпа"
+
+#. Option for the 'DocType Event' (Select) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Before Cancel"
+msgstr "Перед отменой"
+
+#. Option for the 'DocType Event' (Select) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Before Delete"
+msgstr "Перед удалением"
+
+#. Option for the 'DocType Event' (Select) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Before Insert"
+msgstr "Перед вставкой"
+
+#. Option for the 'DocType Event' (Select) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Before Save"
+msgstr "Перед сохранением"
+
+#. Option for the 'DocType Event' (Select) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Before Save (Submitted Document)"
+msgstr "Перед сохранением (проведенный документ)"
+
+#. Option for the 'DocType Event' (Select) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Before Submit"
+msgstr "Перед проведением"
+
+#. Option for the 'DocType Event' (Select) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Before Validate"
+msgstr "Перед проверкой"
+
+#. Label of the business_id (Data) field in DocType 'WhatsApp Settings'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
+msgid "Business ID"
+msgstr "Business ID"
+
+#. Label of the category (Select) field in DocType 'WhatsApp Templates'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
+msgid "Category"
+msgstr "Категория"
+
+#. Label of the condition (Code) field in DocType 'WhatsApp Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Condition"
+msgstr "Условие"
+
+#. Label of the content_type (Select) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "Content Type"
+msgstr "Тип контента"
+
+#. Label of the conversation_id (Data) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "Conversation ID"
+msgstr "ID диалога"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.js:30
+msgid "Created On"
+msgstr "Создано"
+
+#. Label of the custom_attachment (Check) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Custom attachment"
+msgstr "Пользовательское вложение"
+
+#. Option for the 'Header Type' (Select) field in DocType 'WhatsApp Templates'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
+msgid "DOCUMENT"
+msgstr "DOCUMENT"
+
+#. Option for the 'Event Frequency' (Select) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Daily"
+msgstr "Ежедневно"
+
+#. Option for the 'Event Frequency' (Select) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Daily Long"
+msgstr "Ежедневно долго"
+
+#. Option for the 'DocType Event' (Select) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Days After"
+msgstr "Дней после"
+
+#. Option for the 'DocType Event' (Select) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Days Before"
+msgstr "Дней до"
+
+#. Label of the days_in_advance (Int) field in DocType 'WhatsApp Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Days Before or After"
+msgstr "Дней до или после"
+
+#. Label of the disabled (Check) field in DocType 'WhatsApp Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Disabled"
+msgstr "Отключено"
+
+#. Label of the doctype_event (Select) field in DocType 'WhatsApp Notification'
+#. Option for the 'Notification Type' (Select) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "DocType Event"
+msgstr "Событие ДокТайпа"
+
+#. Label of the enabled (Check) field in DocType 'WhatsApp Settings'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
+msgid "Enabled"
+msgstr "Включено"
+
+#. Description of the 'Fields' (Table) field in DocType 'WhatsApp Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Enter fields in the right sequence as per the template parameters."
+msgstr "Введите поля в правильной последовательности в соответствии с параметрами шаблона."
+
+#. Label of the event_frequency (Select) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Event Frequency"
+msgstr "Частота повторения события"
+
+#: frappe_whatsapp/public/js/frappe_whatsapp.js:72
+msgid "Failed to queue WhatsApp message"
+msgstr "Не удалось поставить сообщение WhatsApp в очередь"
+
+#: frappe_whatsapp/public/js/frappe_whatsapp.js:111
+msgid "Failed to send WhatsApp message"
+msgstr "Не удалось отправить сообщение WhatsApp"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.js:62
+msgid "Failed to trigger notifications"
+msgstr "Не удалось запустить уведомления"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates_list.js:4
+msgid "Fetch templates from meta"
+msgstr "Получить шаблоны из МЕТА"
+
+#. Label of the field_name (Data) field in DocType 'WhatsApp Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Field Name"
+msgstr "Имя поля"
+
+#. Label of the field_name (Data) field in DocType 'WhatsApp Message Fields'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message_fields/whatsapp_message_fields.json
+msgid "Field name"
+msgstr "Имя поля"
+
+#. Label of the field_names (Small Text) field in DocType 'WhatsApp Templates'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
+msgid "Field names"
+msgstr "Названия полей"
+
+#. Description of the 'Field names' (Small Text) field in DocType 'WhatsApp
+#. Templates'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
+msgid "Field names to replace the value in templates"
+msgstr "Имена полей для замены значения в шаблонах"
+
+#. Label of the fields (Table) field in DocType 'WhatsApp Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Fields"
+msgstr "Поля"
+
+#. Label of the file_name (Data) field in DocType 'WhatsApp Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "File name"
+msgstr "Имя файла"
+
+#. Label of the footer (Data) field in DocType 'WhatsApp Templates'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
+msgid "Footer"
+msgstr "Футер"
+
+#. Label of the for_doctype (Link) field in DocType 'WhatsApp Templates'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
+msgid "For DocType"
+msgstr "Для ДокТайпа"
+
+#. Description of the 'Category' (Select) field in DocType 'WhatsApp Templates'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
+msgid "For V16 use UTILITY and AUTHENTICATION in place of TRANSACTIONAL and OTP"
+msgstr "Для V16 используйте UTILITY и AUTHENTICATION вместо TRANSACTIONAL и OTP"
+
+#. Label of the from (Data) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "From"
+msgstr "От кого"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.js:49
+msgid "Get Alerts for Today"
+msgstr "Получить уведомления на сегодня"
+
+#. Label of the header (Data) field in DocType 'WhatsApp Templates'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
+msgid "Header"
+msgstr "Хедер"
+
+#. Label of the header_type (Data) field in DocType 'WhatsApp Notification'
+#. Label of the header_type (Select) field in DocType 'WhatsApp Templates'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
+msgid "Header Type"
+msgstr "Тип хедера"
+
+#. Label of the help_section (Section Break) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Help"
+msgstr "Помощь"
+
+#. Option for the 'Event Frequency' (Select) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Hourly"
+msgstr "Каждый час"
+
+#. Option for the 'Event Frequency' (Select) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Hourly Long"
+msgstr "Долгосрочный почасовой"
+
+#. Label of the id (Data) field in DocType 'WhatsApp Templates'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
+msgid "ID"
+msgstr "ID"
+
+#. Option for the 'Header Type' (Select) field in DocType 'WhatsApp Templates'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
+msgid "IMAGE"
+msgstr "IMAGE"
+
+#. Option for the 'Type' (Select) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "Incoming"
+msgstr "Входящие"
+
+#. Label of the is_reply (Check) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "Is Reply"
+msgstr "Ответное сообщение"
+
+#. Label of the label (Data) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "Label"
+msgstr "Название"
+
+#. Label of the language (Link) field in DocType 'WhatsApp Templates'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
+msgid "Language"
+msgstr "Язык"
+
+#. Label of the language_code (Data) field in DocType 'WhatsApp Templates'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
+msgid "Language Code"
+msgstr "Код языка"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.js:31
+msgid "Last Modified Date"
+msgstr "Дата последнего изменения"
+
+#. Option for the 'Category' (Select) field in DocType 'WhatsApp Templates'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
+msgid "MARKETING"
+msgstr "MARKETING"
+
+#. Option for the 'Message Type' (Select) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "Manual"
+msgstr "Вручную"
+
+#. Label of the message (HTML Editor) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "Message"
+msgstr "Сообщение"
+
+#. Label of the message_id (Data) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "Message ID"
+msgstr "ID сообщения"
+
+#. Label of the message_type (Select) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "Message Type"
+msgstr "Тип сообщения"
+
+#. Label of the meta_data (JSON) field in DocType 'WhatsApp Notification Log'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification_log/whatsapp_notification_log.json
+msgid "Meta Data"
+msgstr "Метаданные"
+
+#. Description of the 'Field Name' (Data) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Mobile number field"
+msgstr "Поле номера мобильного телефона"
+
+#. Description of the 'TO ' (Data) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+#: frappe_whatsapp/public/js/frappe_whatsapp.js:26
+msgid "Mobile number with country code"
+msgstr "Номер мобильного телефона с кодом страны"
+
+#. Option for the 'Event Frequency' (Select) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Monthly"
+msgstr "Ежемесячно"
+
+#. Option for the 'Event Frequency' (Select) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Monthly Long"
+msgstr "Длительно ежемесячно"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.js:58
+msgid "No alerts for today"
+msgstr "Сегодня нет оповещений"
+
+#. Label of the notification_name (Data) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Notification Name"
+msgstr "Имя уведомления"
+
+#. Label of the notification_type (Select) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Notification Type"
+msgstr "Тип уведомления"
+
+#. Option for the 'Category' (Select) field in DocType 'WhatsApp Templates'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
+msgid "OTP"
+msgstr "Код (OTP)"
+
+#. Option for the 'Type' (Select) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "Outgoing"
+msgstr "Исходящие"
+
+#. Label of the phone_id (Data) field in DocType 'WhatsApp Settings'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
+msgid "Phone ID"
+msgstr "Телефонный идентификатор"
+
+#. Label of the date_changed (Select) field in DocType 'WhatsApp Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Reference Date"
+msgstr "Дата ссылки"
+
+#. Label of the reference_doctype (Link) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "Reference DocType"
+msgstr "Тип ссылочного документа"
+
+#. Label of the reference_doctype (Link) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Reference Document Type"
+msgstr "Тип документа ссылки"
+
+#. Label of the reference_name (Dynamic Link) field in DocType 'WhatsApp
+#. Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "Reference name"
+msgstr "Название ссылки"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.js:7
+msgid "Reply"
+msgstr "Ответить"
+
+#. Label of the reply_to_message_id (Data) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "Reply To Message ID"
+msgstr "Ответ на сообщение"
+
+#. Label of the sample (Attach) field in DocType 'WhatsApp Templates'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
+msgid "Sample"
+msgstr "Образец"
+
+#. Label of the sample_values (Small Text) field in DocType 'WhatsApp
+#. Templates'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
+msgid "Sample Values"
+msgstr "Образцовые значения"
+
+#. Option for the 'Notification Type' (Select) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Scheduler Event"
+msgstr "Планировщик событий"
+
+#. Name of a role
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Script Manager"
+msgstr "Менеджер скриптов"
+
+#: frappe_whatsapp/public/js/frappe_whatsapp.js:47
+msgid "Send"
+msgstr "Отправить"
+
+#: frappe_whatsapp/public/js/frappe_whatsapp.js:86
+msgid "Send WhatsApp"
+msgstr "Отправить WhatsApp"
+
+#: frappe_whatsapp/public/js/frappe_whatsapp.js:45
+msgid "Send WhatsApp Message"
+msgstr "Отправить WhatsApp Сообщение"
+
+#. Description of the 'Days Before or After' (Int) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Send days before or after the reference date"
+msgstr "Отправить дней до или после контрольной даты"
+
+#. Label of the status (Data) field in DocType 'WhatsApp Message'
+#. Label of the status (Data) field in DocType 'WhatsApp Templates'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
+msgid "Status"
+msgstr "Статус"
+
+#. Name of a role
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification_log/whatsapp_notification_log.json
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
+msgid "System Manager"
+msgstr "Системный менеджер"
+
+#. Option for the 'Header Type' (Select) field in DocType 'WhatsApp Templates'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
+msgid "TEXT"
+msgstr "TEXT"
+
+#. Label of the to (Data) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "TO "
+msgstr "Кому"
+
+#. Option for the 'Category' (Select) field in DocType 'WhatsApp Templates'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
+msgid "TRANSACTIONAL"
+msgstr "TRANSACTIONAL"
+
+#. Label of the template (Link) field in DocType 'WhatsApp Message'
+#. Option for the 'Message Type' (Select) field in DocType 'WhatsApp Message'
+#. Label of the template (Link) field in DocType 'WhatsApp Notification'
+#. Label of the template (Data) field in DocType 'WhatsApp Notification Log'
+#. Label of the template (Code) field in DocType 'WhatsApp Templates'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification_log/whatsapp_notification_log.json
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
+#: frappe_whatsapp/public/js/frappe_whatsapp.js:29
+msgid "Template"
+msgstr "Шаблон"
+
+#. Label of the template_header_parameters (Small Text) field in DocType
+#. 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "Template Header Parameters"
+msgstr "Параметры заголовка шаблона"
+
+#. Label of the template_name (Data) field in DocType 'WhatsApp Templates'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
+msgid "Template Label"
+msgstr "Название шаблона"
+
+#. Label of the actual_name (Data) field in DocType 'WhatsApp Templates'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
+msgid "Template Name"
+msgstr "Название шаблона"
+
+#. Label of the template_parameters (Small Text) field in DocType 'WhatsApp
+#. Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "Template Parameters"
+msgstr "Параметры шаблона"
+
+#: frappe_whatsapp/public/js/frappe_whatsapp.js:22
+msgid "To"
+msgstr "Кому"
+
+#. Label of the token (Password) field in DocType 'WhatsApp Settings'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
+msgid "Token"
+msgstr "Токен"
+
+#. Label of the type (Select) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "Type"
+msgstr "Тип"
+
+#. Label of the url (Data) field in DocType 'WhatsApp Settings'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
+msgid "URL"
+msgstr "URL"
+
+#. Option for the 'Category' (Select) field in DocType 'WhatsApp Templates'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
+msgid "UTILITY"
+msgstr "UTILITY"
+
+#. Description of the 'Attach' (Attach) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Upload the file as public. Whatsapp cannot access the private file."
+msgstr "Загрузите файл как публичный. Whatsapp не сможет получить доступ к приватному файлу."
+
+#. Label of the use_template (Check) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "Use Template"
+msgstr "Использовать шаблон"
+
+#. Label of the version (Data) field in DocType 'WhatsApp Settings'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
+msgid "Version"
+msgstr "Версия"
+
+#. Label of the webhook_verify_token (Data) field in DocType 'WhatsApp
+#. Settings'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
+msgid "Webhook Verify Token"
+msgstr "Webhook Verify Token"
+
+#. Option for the 'Event Frequency' (Select) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Weekly"
+msgstr "Еженедельно"
+
+#. Option for the 'Event Frequency' (Select) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Weekly Long"
+msgstr "Еженедельные длинные"
+
+#. Name of a DocType
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "WhatsApp Message"
+msgstr "Сообщение WhatsApp"
+
+#. Name of a DocType
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message_fields/whatsapp_message_fields.json
+msgid "WhatsApp Message Fields"
+msgstr "Поля сообщений WhatsApp"
+
+#. Name of a DocType
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "WhatsApp Notification"
+msgstr "Уведомление WhatsApp"
+
+#. Name of a DocType
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification_log/whatsapp_notification_log.json
+msgid "WhatsApp Notification Log"
+msgstr "Журнал уведомлений WhatsApp"
+
+#. Name of a DocType
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
+msgid "WhatsApp Settings"
+msgstr "Настройки WhatsApp"
+
+#. Description of the ' Attach Document Print' (Check) field in DocType
+#. 'WhatsApp Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "WhatsApp Template requires a document. "
+msgstr "Шаблон WhatsApp требует наличия документа."
+
+#. Description of the 'Custom attachment' (Check) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "WhatsApp Template requires document"
+msgstr "Шаблон WhatsApp требует наличия документа"
+
+#. Name of a DocType
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
+msgid "WhatsApp Templates"
+msgstr "Шаблоны WhatsApp"
+
+#: frappe_whatsapp/public/js/frappe_whatsapp.js:62
+msgid "WhatsApp message queued for sending"
+msgstr "Сообщение WhatsApp поставлено в очередь на отправку"
+
+#: frappe_whatsapp/public/js/frappe_whatsapp.js:106
+msgid "WhatsApp message sent successfully"
+msgstr "Сообщение WhatsApp успешно отправлено"
+
+#. Option for the 'Event Frequency' (Select) field in DocType 'WhatsApp
+#. Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Yearly"
+msgstr "Ежегодно"
+
+#. Option for the 'Content Type' (Select) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "audio"
+msgstr "аудио"
+
+#. Option for the 'Content Type' (Select) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "button"
+msgstr "кнопка"
+
+#. Option for the 'Content Type' (Select) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "contact"
+msgstr "контакт"
+
+#. Option for the 'Content Type' (Select) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "document"
+msgstr "документ"
+
+#. Option for the 'Content Type' (Select) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "flow"
+msgstr "поток"
+
+#. Option for the 'Content Type' (Select) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "image"
+msgstr "изображение"
+
+#. Option for the 'Content Type' (Select) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "location"
+msgstr "местоположение"
+
+#. Option for the 'Content Type' (Select) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "reaction"
+msgstr "реакция"
+
+#. Option for the 'Content Type' (Select) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "text"
+msgstr "текст"
+
+#. Option for the 'Content Type' (Select) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "video"
+msgstr "видео"
