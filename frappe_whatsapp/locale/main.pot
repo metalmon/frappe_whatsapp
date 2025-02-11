@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Frappe Whatsapp VERSION\n"
 "Report-Msgid-Bugs-To: shridhar.p@zerodha.com\n"
-"POT-Creation-Date: 2025-02-10 06:33+0000\n"
-"PO-Revision-Date: 2025-02-10 06:33+0000\n"
+"POT-Creation-Date: 2025-02-11 09:13+0000\n"
+"PO-Revision-Date: 2025-02-11 09:13+0000\n"
 "Last-Translator: shridhar.p@zerodha.com\n"
 "Language-Team: shridhar.p@zerodha.com\n"
 "MIME-Version: 1.0\n"
@@ -124,6 +124,14 @@ msgstr ""
 msgid "Attach media from doctype field"
 msgstr ""
 
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:254
+msgid "Authorization Error"
+msgstr ""
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:258
+msgid "Authorization error"
+msgstr ""
+
 #. Option for the 'DocType Event' (Select) field in DocType 'WhatsApp
 #. Notification'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
@@ -181,6 +189,11 @@ msgstr ""
 msgid "Condition"
 msgstr ""
 
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:221
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:230
+msgid "Configuration Required"
+msgstr ""
+
 #. Label of the content_type (Select) field in DocType 'WhatsApp Message'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
 msgid "Content Type"
@@ -235,6 +248,10 @@ msgstr ""
 msgid "Days Before or After"
 msgstr ""
 
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:176
+msgid "Deleted locally"
+msgstr ""
+
 #. Label of the disabled (Check) field in DocType 'WhatsApp Notification'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
 msgid "Disabled"
@@ -257,10 +274,26 @@ msgstr ""
 msgid "Enter fields in the right sequence as per the template parameters."
 msgstr ""
 
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:329
+msgid "Error"
+msgstr ""
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:333
+msgid "Error: {error_msg}"
+msgstr ""
+
 #. Label of the event_frequency (Select) field in DocType 'WhatsApp
 #. Notification'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
 msgid "Event Frequency"
+msgstr ""
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates_list.js:25
+msgid "Failed to fetch templates. Please try again."
+msgstr ""
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:328
+msgid "Failed to fetch templates: {error_msg}"
 msgstr ""
 
 #: frappe_whatsapp/public/js/frappe_whatsapp.js:72
@@ -277,6 +310,10 @@ msgstr ""
 
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates_list.js:4
 msgid "Fetch templates from meta"
+msgstr ""
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates_list.js:8
+msgid "Fetching templates from Meta..."
 msgstr ""
 
 #. Label of the field_name (Data) field in DocType 'WhatsApp Notification'
@@ -379,6 +416,10 @@ msgstr ""
 msgid "Incoming"
 msgstr ""
 
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:253
+msgid "Invalid or expired Meta token. Please check your WhatsApp settings."
+msgstr ""
+
 #. Label of the is_reply (Check) field in DocType 'WhatsApp Message'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
 msgid "Is Reply"
@@ -457,8 +498,20 @@ msgstr ""
 msgid "Monthly Long"
 msgstr ""
 
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:266
+msgid "No Templates"
+msgstr ""
+
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.js:58
 msgid "No alerts for today"
+msgstr ""
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:270
+msgid "No templates found"
+msgstr ""
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:265
+msgid "No templates found in Meta account."
 msgstr ""
 
 #. Label of the notification_name (Data) field in DocType 'WhatsApp
@@ -559,11 +612,19 @@ msgstr ""
 msgid "Send days before or after the reference date"
 msgstr ""
 
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:234
+msgid "Settings incomplete"
+msgstr ""
+
 #. Label of the status (Data) field in DocType 'WhatsApp Message'
 #. Label of the status (Data) field in DocType 'WhatsApp Templates'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
 msgid "Status"
+msgstr ""
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:335
+msgid "Successfully fetched templates from meta"
 msgstr ""
 
 #. Name of a role
@@ -631,6 +692,10 @@ msgstr ""
 #. Label of the token (Password) field in DocType 'WhatsApp Settings'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
 msgid "Token"
+msgstr ""
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:225
+msgid "Token not configured"
 msgstr ""
 
 #. Label of the type (Select) field in DocType 'WhatsApp Message'
@@ -730,6 +795,14 @@ msgstr ""
 
 #: frappe_whatsapp/public/js/frappe_whatsapp.js:106
 msgid "WhatsApp message sent successfully"
+msgstr ""
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:229
+msgid "WhatsApp settings are incomplete. Please configure URL, Version and Business ID."
+msgstr ""
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:220
+msgid "WhatsApp token is not configured. Please configure it in WhatsApp Settings."
 msgstr ""
 
 #. Option for the 'Event Frequency' (Select) field in DocType 'WhatsApp

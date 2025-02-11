@@ -9,6 +9,7 @@ import magic
 from frappe.model.document import Document
 from frappe.integrations.utils import make_post_request, make_request
 from frappe.desk.form.utils import get_pdf_link
+from frappe.utils.password import get_decrypted_password
 
 
 class WhatsAppTemplates(Document):
@@ -172,7 +173,7 @@ class WhatsAppTemplates(Document):
             res = frappe.flags.integration_request.json()["error"]
             if res.get("error_user_title") == "Message Template Not Found":
                 frappe.msgprint(
-                    "Deleted locally", res.get("error_user_title", "Error"), alert=True
+                    _("Deleted locally"), res.get("error_user_title", "Error"), alert=True
                 )
             else:
                 frappe.throw(
@@ -202,10 +203,36 @@ class WhatsAppTemplates(Document):
 @frappe.whitelist()
 def fetch():
     """Fetch templates from meta."""
+    import requests
+    from urllib.parse import urljoin
 
     # get credentials
     settings = frappe.get_doc("WhatsApp Settings", "WhatsApp Settings")
-    token = settings.get_password("token")
+    
+    try:
+        token = get_decrypted_password("WhatsApp Settings", "WhatsApp Settings", "token", raise_exception=False)
+    except Exception:
+        token = None
+    
+    # Validate required settings
+    if not token:
+        frappe.msgprint(
+            msg=_("WhatsApp token is not configured. Please configure it in WhatsApp Settings."),
+            title=_("Configuration Required"),
+            indicator="red",
+            raise_exception=False
+        )
+        return _("Token not configured")
+        
+    if not settings.url or not settings.version or not settings.business_id:
+        frappe.msgprint(
+            msg=_("WhatsApp settings are incomplete. Please configure URL, Version and Business ID."),
+            title=_("Configuration Required"),
+            indicator="red",
+            raise_exception=False
+        )
+        return _("Settings incomplete")
+
     url = settings.url
     version = settings.version
     business_id = settings.business_id
@@ -213,13 +240,36 @@ def fetch():
     headers = {"authorization": f"Bearer {token}", "content-type": "application/json"}
 
     try:
-        response = make_request(
-            "GET",
-            f"{url}/{version}/{business_id}/message_templates",
+        # Use requests directly instead of make_request
+        response = requests.get(
+            urljoin(url, f"{version}/{business_id}/message_templates"),
             headers=headers,
+            timeout=30
         )
+        
+        # Handle HTTP errors explicitly
+        if response.status_code == 401:
+            frappe.msgprint(
+                msg=_("Invalid or expired Meta token. Please check your WhatsApp settings."),
+                title=_("Authorization Error"),
+                indicator="red",
+                raise_exception=False
+            )
+            return _("Authorization error")
+            
+        response.raise_for_status()
+        response_data = response.json()
 
-        for template in response["data"]:
+        if not response_data.get("data"):
+            frappe.msgprint(
+                msg=_("No templates found in Meta account."),
+                title=_("No Templates"),
+                indicator="yellow",
+                raise_exception=False
+            )
+            return _("No templates found")
+
+        for template in response_data["data"]:
             # set flag to insert or update
             flags = 1
             if frappe.db.exists("WhatsApp Templates", {"actual_name": template["name"]}):
@@ -237,7 +287,6 @@ def fetch():
 
             # update components
             for component in template["components"]:
-
                 # update header
                 if component["type"] == "HEADER":
                     doc.header_type = component["format"]
@@ -265,12 +314,22 @@ def fetch():
                 doc.db_insert()
             frappe.db.commit()
 
-    except Exception as e:
-        res = frappe.flags.integration_request.json()["error"]
-        error_message = res.get("error_user_msg", res.get("message"))
-        frappe.throw(
-            msg=error_message,
-            title=res.get("error_user_title", "Error"),
+    except requests.exceptions.RequestException as e:
+        error_msg = str(e)
+        if hasattr(e, 'response') and e.response:
+            try:
+                error_data = e.response.json()
+                if isinstance(error_data, dict) and "error" in error_data:
+                    error_msg = error_data["error"].get("error_user_msg") or error_data["error"].get("message", str(e))
+            except Exception:
+                pass
+                
+        frappe.msgprint(
+            msg=_("Failed to fetch templates: {error_msg}"),
+            title=_("Error"),
+            indicator="red",
+            raise_exception=False
         )
+        return _("Error: {error_msg}")
 
-    return "Successfully fetched templates from meta"
+    return _("Successfully fetched templates from meta")

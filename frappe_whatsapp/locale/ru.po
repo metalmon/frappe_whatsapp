@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Frappe Whatsapp VERSION\n"
 "Report-Msgid-Bugs-To: shridhar.p@zerodha.com\n"
-"POT-Creation-Date: 2025-02-10 06:33+0000\n"
-"PO-Revision-Date: 2025-02-10 17:39+0300\n"
+"POT-Creation-Date: 2025-02-11 09:13+0000\n"
+"PO-Revision-Date: 2025-02-11 12:15+0300\n"
 "Last-Translator: AlexKuzin <dev@olimpicfresh.ru>\n"
 "Language-Team: shridhar.p@zerodha.com\n"
 "Language: ru\n"
@@ -145,13 +145,21 @@ msgstr "Прикрепить"
 #. Notification'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
 msgid "Attach from field "
-msgstr "Прикрепить с поля"
+msgstr "Прикрепить с поля "
 
 #. Description of the 'Attach from field ' (Data) field in DocType 'WhatsApp
 #. Notification'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
 msgid "Attach media from doctype field"
 msgstr "Прикрепите мультимедиа из поля доктайпа"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:254
+msgid "Authorization Error"
+msgstr "Ошибка авторизации"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:258
+msgid "Authorization error"
+msgstr "Ошибка авторизации"
 
 #. Option for the 'DocType Event' (Select) field in DocType 'WhatsApp
 #. Notification'
@@ -210,6 +218,11 @@ msgstr "Категория"
 msgid "Condition"
 msgstr "Условие"
 
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:221
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:230
+msgid "Configuration Required"
+msgstr "Требуется конфигурация"
+
 #. Label of the content_type (Select) field in DocType 'WhatsApp Message'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
 msgid "Content Type"
@@ -264,6 +277,10 @@ msgstr "Дней до"
 msgid "Days Before or After"
 msgstr "Дней до или после"
 
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:176
+msgid "Deleted locally"
+msgstr "Удалено локально"
+
 #. Label of the disabled (Check) field in DocType 'WhatsApp Notification'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
 msgid "Disabled"
@@ -286,11 +303,27 @@ msgstr "Включено"
 msgid "Enter fields in the right sequence as per the template parameters."
 msgstr "Введите поля в правильной последовательности в соответствии с параметрами шаблона."
 
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:329
+msgid "Error"
+msgstr "Ошибка"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:333
+msgid "Error: {error_msg}"
+msgstr "Ошибка: {error_msg}"
+
 #. Label of the event_frequency (Select) field in DocType 'WhatsApp
 #. Notification'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
 msgid "Event Frequency"
 msgstr "Частота повторения события"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates_list.js:25
+msgid "Failed to fetch templates. Please try again."
+msgstr "Не удалось получить шаблоны. Пожалуйста, попробуйте еще раз."
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:328
+msgid "Failed to fetch templates: {error_msg}"
+msgstr "Не удалось получить шаблоны: {error_msg}"
 
 #: frappe_whatsapp/public/js/frappe_whatsapp.js:72
 msgid "Failed to queue WhatsApp message"
@@ -307,6 +340,10 @@ msgstr "Не удалось запустить уведомления"
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates_list.js:4
 msgid "Fetch templates from meta"
 msgstr "Получить шаблоны из МЕТА"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates_list.js:8
+msgid "Fetching templates from Meta..."
+msgstr "Получение шаблонов из Meta..."
 
 #. Label of the field_name (Data) field in DocType 'WhatsApp Notification'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
@@ -408,6 +445,10 @@ msgstr "IMAGE"
 msgid "Incoming"
 msgstr "Входящие"
 
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:253
+msgid "Invalid or expired Meta token. Please check your WhatsApp settings."
+msgstr "Недействительный или просроченный Мета-токен. Пожалуйста, проверьте настройки WhatsApp."
+
 #. Label of the is_reply (Check) field in DocType 'WhatsApp Message'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
 msgid "Is Reply"
@@ -486,9 +527,21 @@ msgstr "Ежемесячно"
 msgid "Monthly Long"
 msgstr "Длительно ежемесячно"
 
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:266
+msgid "No Templates"
+msgstr "Нет шаблонов"
+
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.js:58
 msgid "No alerts for today"
 msgstr "Сегодня нет оповещений"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:270
+msgid "No templates found"
+msgstr "Шаблоны не найдены"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:265
+msgid "No templates found in Meta account."
+msgstr "В Мета-аккаунте не найдено шаблонов."
 
 #. Label of the notification_name (Data) field in DocType 'WhatsApp
 #. Notification'
@@ -588,12 +641,20 @@ msgstr "Отправить WhatsApp Сообщение"
 msgid "Send days before or after the reference date"
 msgstr "Отправить дней до или после контрольной даты"
 
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:234
+msgid "Settings incomplete"
+msgstr "Неполные настройки"
+
 #. Label of the status (Data) field in DocType 'WhatsApp Message'
 #. Label of the status (Data) field in DocType 'WhatsApp Templates'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
 msgid "Status"
 msgstr "Статус"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:335
+msgid "Successfully fetched templates from meta"
+msgstr "Успешное извлечение шаблонов из мета"
 
 #. Name of a role
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
@@ -611,7 +672,7 @@ msgstr "TEXT"
 #. Label of the to (Data) field in DocType 'WhatsApp Message'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
 msgid "TO "
-msgstr "Кому"
+msgstr "Кому "
 
 #. Option for the 'Category' (Select) field in DocType 'WhatsApp Templates'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
@@ -661,6 +722,10 @@ msgstr "Кому"
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
 msgid "Token"
 msgstr "Токен"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:225
+msgid "Token not configured"
+msgstr "Токен не настроен"
 
 #. Label of the type (Select) field in DocType 'WhatsApp Message'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
@@ -740,7 +805,7 @@ msgstr "Настройки WhatsApp"
 #. 'WhatsApp Notification'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
 msgid "WhatsApp Template requires a document. "
-msgstr "Шаблон WhatsApp требует наличия документа."
+msgstr "Шаблон WhatsApp требует наличия документа. "
 
 #. Description of the 'Custom attachment' (Check) field in DocType 'WhatsApp
 #. Notification'
@@ -760,6 +825,14 @@ msgstr "Сообщение WhatsApp поставлено в очередь на 
 #: frappe_whatsapp/public/js/frappe_whatsapp.js:106
 msgid "WhatsApp message sent successfully"
 msgstr "Сообщение WhatsApp успешно отправлено"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:229
+msgid "WhatsApp settings are incomplete. Please configure URL, Version and Business ID."
+msgstr "Настройки WhatsApp неполны. Пожалуйста, настройте URL, версию и бизнес-идентификатор."
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:220
+msgid "WhatsApp token is not configured. Please configure it in WhatsApp Settings."
+msgstr "Токен WhatsApp не настроен. Пожалуйста, настройте его в Настройках WhatsApp."
 
 #. Option for the 'Event Frequency' (Select) field in DocType 'WhatsApp
 #. Notification'
