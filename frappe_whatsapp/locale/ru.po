@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Frappe Whatsapp VERSION\n"
 "Report-Msgid-Bugs-To: shridhar.p@zerodha.com\n"
-"POT-Creation-Date: 2025-02-11 09:13+0000\n"
-"PO-Revision-Date: 2025-02-11 12:15+0300\n"
+"POT-Creation-Date: 2025-02-11 11:17+0000\n"
+"PO-Revision-Date: 2025-02-11 14:19+0300\n"
 "Last-Translator: AlexKuzin <dev@olimpicfresh.ru>\n"
 "Language-Team: shridhar.p@zerodha.com\n"
 "Language: ru\n"
@@ -87,6 +87,10 @@ msgstr ""
 msgid "AUTHENTICATION"
 msgstr "AUTHENTICATION"
 
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.js:71
+msgid "Actions"
+msgstr "Действия"
+
 #. Option for the 'DocType Event' (Select) field in DocType 'WhatsApp
 #. Notification'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
@@ -153,12 +157,8 @@ msgstr "Прикрепить с поля "
 msgid "Attach media from doctype field"
 msgstr "Прикрепите мультимедиа из поля доктайпа"
 
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:254
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:236
 msgid "Authorization Error"
-msgstr "Ошибка авторизации"
-
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:258
-msgid "Authorization error"
 msgstr "Ошибка авторизации"
 
 #. Option for the 'DocType Event' (Select) field in DocType 'WhatsApp
@@ -218,10 +218,20 @@ msgstr "Категория"
 msgid "Condition"
 msgstr "Условие"
 
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:221
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:230
-msgid "Configuration Required"
-msgstr "Требуется конфигурация"
+#. Label of the connection_settings_section (Section Break) field in DocType
+#. 'WhatsApp Settings'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
+msgid "Connection Settings"
+msgstr "Настройки соединения"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.js:61
+msgid "Connection Test Results"
+msgstr "Результаты тестирования соединений"
+
+#. Label of the connection_type (Select) field in DocType 'WhatsApp Settings'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
+msgid "Connection Type"
+msgstr "Тип соединения"
 
 #. Label of the content_type (Select) field in DocType 'WhatsApp Message'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
@@ -237,11 +247,23 @@ msgstr "ID диалога"
 msgid "Created On"
 msgstr "Создано"
 
+#. Option for the 'Connection Type' (Select) field in DocType 'WhatsApp
+#. Settings'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
+msgid "Custom DNS"
+msgstr "Пользовательский DNS"
+
 #. Label of the custom_attachment (Check) field in DocType 'WhatsApp
 #. Notification'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
 msgid "Custom attachment"
 msgstr "Пользовательское вложение"
+
+#. Label of the dns_settings_section (Section Break) field in DocType 'WhatsApp
+#. Settings'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
+msgid "DNS Settings"
+msgstr "Настройки DNS"
 
 #. Option for the 'Header Type' (Select) field in DocType 'WhatsApp Templates'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
@@ -277,7 +299,7 @@ msgstr "Дней до"
 msgid "Days Before or After"
 msgstr "Дней до или после"
 
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:176
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:177
 msgid "Deleted locally"
 msgstr "Удалено локально"
 
@@ -303,13 +325,9 @@ msgstr "Включено"
 msgid "Enter fields in the right sequence as per the template parameters."
 msgstr "Введите поля в правильной последовательности в соответствии с параметрами шаблона."
 
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:329
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:311
 msgid "Error"
 msgstr "Ошибка"
-
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:333
-msgid "Error: {error_msg}"
-msgstr "Ошибка: {error_msg}"
 
 #. Label of the event_frequency (Select) field in DocType 'WhatsApp
 #. Notification'
@@ -317,13 +335,30 @@ msgstr "Ошибка: {error_msg}"
 msgid "Event Frequency"
 msgstr "Частота повторения события"
 
+#. Description of the 'Secondary DNS Server' (Data) field in DocType 'WhatsApp
+#. Settings'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
+msgid "Example: 8.8.4.4 (Google) or 1.0.0.1 (Cloudflare)"
+msgstr "Пример: 8.8.4.4 (Google) или 1.0.0.1 (Cloudflare)"
+
+#. Description of the 'Primary DNS Server' (Data) field in DocType 'WhatsApp
+#. Settings'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
+msgid "Example: 8.8.8.8 (Google) or 1.1.1.1 (Cloudflare)"
+msgstr "Пример: 8.8.8.8 (Google) или 1.1.1.1 (Cloudflare)"
+
+#. Description of the 'Proxy URL' (Data) field in DocType 'WhatsApp Settings'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
+msgid "Example: http://proxy.example.com:8080 or socks5://proxy.example.com:1080"
+msgstr "Пример: http://proxy.example.com:8080 или socks5://proxy.example.com:1080"
+
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates_list.js:25
 msgid "Failed to fetch templates. Please try again."
 msgstr "Не удалось получить шаблоны. Пожалуйста, попробуйте еще раз."
 
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:328
-msgid "Failed to fetch templates: {error_msg}"
-msgstr "Не удалось получить шаблоны: {error_msg}"
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:310
+msgid "Failed to fetch templates: {}"
+msgstr "Не удалось получить шаблоны: {}"
 
 #: frappe_whatsapp/public/js/frappe_whatsapp.js:72
 msgid "Failed to queue WhatsApp message"
@@ -445,7 +480,7 @@ msgstr "IMAGE"
 msgid "Incoming"
 msgstr "Входящие"
 
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:253
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:235
 msgid "Invalid or expired Meta token. Please check your WhatsApp settings."
 msgstr "Недействительный или просроченный Мета-токен. Пожалуйста, проверьте настройки WhatsApp."
 
@@ -527,7 +562,7 @@ msgstr "Ежемесячно"
 msgid "Monthly Long"
 msgstr "Длительно ежемесячно"
 
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:266
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:248
 msgid "No Templates"
 msgstr "Нет шаблонов"
 
@@ -535,11 +570,7 @@ msgstr "Нет шаблонов"
 msgid "No alerts for today"
 msgstr "Сегодня нет оповещений"
 
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:270
-msgid "No templates found"
-msgstr "Шаблоны не найдены"
-
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:265
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:247
 msgid "No templates found in Meta account."
 msgstr "В Мета-аккаунте не найдено шаблонов."
 
@@ -569,6 +600,38 @@ msgstr "Исходящие"
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
 msgid "Phone ID"
 msgstr "Phone ID"
+
+#. Label of the primary_dns (Data) field in DocType 'WhatsApp Settings'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
+msgid "Primary DNS Server"
+msgstr "Основной DNS-сервер"
+
+#. Option for the 'Connection Type' (Select) field in DocType 'WhatsApp
+#. Settings'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
+msgid "Proxy"
+msgstr "Прокси"
+
+#. Label of the proxy_password (Password) field in DocType 'WhatsApp Settings'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
+msgid "Proxy Password"
+msgstr "Пароль прокси-сервера"
+
+#. Label of the proxy_settings_section (Section Break) field in DocType
+#. 'WhatsApp Settings'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
+msgid "Proxy Settings"
+msgstr "Настройки прокси"
+
+#. Label of the proxy_url (Data) field in DocType 'WhatsApp Settings'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
+msgid "Proxy URL"
+msgstr "URL прокси-сервера"
+
+#. Label of the proxy_username (Data) field in DocType 'WhatsApp Settings'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
+msgid "Proxy Username"
+msgstr "Имя пользователя прокси-сервера"
 
 #. Label of the date_changed (Select) field in DocType 'WhatsApp Notification'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
@@ -623,6 +686,15 @@ msgstr "Планировщик событий"
 msgid "Script Manager"
 msgstr "Менеджер скриптов"
 
+#. Label of the secondary_dns (Data) field in DocType 'WhatsApp Settings'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
+msgid "Secondary DNS Server"
+msgstr "Вторичный DNS-сервер"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.js:77
+msgid "Security Warning"
+msgstr "Предупреждение о безопасности"
+
 #: frappe_whatsapp/public/js/frappe_whatsapp.js:47
 msgid "Send"
 msgstr "Отправить"
@@ -641,9 +713,11 @@ msgstr "Отправить WhatsApp Сообщение"
 msgid "Send days before or after the reference date"
 msgstr "Отправить дней до или после контрольной даты"
 
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:234
-msgid "Settings incomplete"
-msgstr "Неполные настройки"
+#. Option for the 'Connection Type' (Select) field in DocType 'WhatsApp
+#. Settings'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
+msgid "Standard"
+msgstr "Стандартный"
 
 #. Label of the status (Data) field in DocType 'WhatsApp Message'
 #. Label of the status (Data) field in DocType 'WhatsApp Templates'
@@ -651,10 +725,6 @@ msgstr "Неполные настройки"
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
 msgid "Status"
 msgstr "Статус"
-
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:335
-msgid "Successfully fetched templates from meta"
-msgstr "Успешное извлечение шаблонов из мета"
 
 #. Name of a role
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
@@ -714,6 +784,14 @@ msgstr "Название шаблона"
 msgid "Template Parameters"
 msgstr "Параметры шаблона"
 
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.js:7
+msgid "Test Connection"
+msgstr "Тест подключения"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.js:10
+msgid "Testing connection..."
+msgstr "Тестирование подключения..."
+
 #: frappe_whatsapp/public/js/frappe_whatsapp.js:22
 msgid "To"
 msgstr "Кому"
@@ -722,10 +800,6 @@ msgstr "Кому"
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
 msgid "Token"
 msgstr "Токен"
-
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:225
-msgid "Token not configured"
-msgstr "Токен не настроен"
 
 #. Label of the type (Select) field in DocType 'WhatsApp Message'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
@@ -752,6 +826,10 @@ msgstr "Загрузите файл как публичный. Whatsapp не с�
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
 msgid "Use Template"
 msgstr "Использовать шаблон"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.js:79
+msgid "Using custom DNS will disable SSL certificate verification. This may pose security risks. Use this feature only if you understand the implications."
+msgstr "Использование пользовательских DNS отключает проверку сертификата SSL. Это может представлять угрозу безопасности. Используйте эту функцию только в том случае, если Вы понимаете ее последствия."
 
 #. Label of the version (Data) field in DocType 'WhatsApp Settings'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
@@ -825,14 +903,6 @@ msgstr "Сообщение WhatsApp поставлено в очередь на 
 #: frappe_whatsapp/public/js/frappe_whatsapp.js:106
 msgid "WhatsApp message sent successfully"
 msgstr "Сообщение WhatsApp успешно отправлено"
-
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:229
-msgid "WhatsApp settings are incomplete. Please configure URL, Version and Business ID."
-msgstr "Настройки WhatsApp неполны. Пожалуйста, настройте URL, версию и бизнес-идентификатор."
-
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:220
-msgid "WhatsApp token is not configured. Please configure it in WhatsApp Settings."
-msgstr "Токен WhatsApp не настроен. Пожалуйста, настройте его в Настройках WhatsApp."
 
 #. Option for the 'Event Frequency' (Select) field in DocType 'WhatsApp
 #. Notification'

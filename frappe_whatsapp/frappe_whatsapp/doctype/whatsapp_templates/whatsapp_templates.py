@@ -10,7 +10,8 @@ from frappe.model.document import Document
 from frappe.integrations.utils import make_post_request, make_request
 from frappe.desk.form.utils import get_pdf_link
 from frappe.utils.password import get_decrypted_password
-
+from frappe import _
+from frappe_whatsapp.utils.connection import get_connection_config, get_url
 
 class WhatsAppTemplates(Document):
     """Create whatsapp template."""
@@ -206,45 +207,26 @@ def fetch():
     import requests
     from urllib.parse import urljoin
 
-    # get credentials
     settings = frappe.get_doc("WhatsApp Settings", "WhatsApp Settings")
+    token = settings.get_password("token")
+    
+    # Get connection configuration
+    config = get_connection_config(settings)
+    headers = {
+        "authorization": f"Bearer {token}",
+        "content-type": "application/json"
+    }
+    headers.update(config['headers'])
+    
+    url = get_url(f"{settings.url}/{settings.version}/{settings.business_id}/message_templates", settings)
     
     try:
-        token = get_decrypted_password("WhatsApp Settings", "WhatsApp Settings", "token", raise_exception=False)
-    except Exception:
-        token = None
-    
-    # Validate required settings
-    if not token:
-        frappe.msgprint(
-            msg=_("WhatsApp token is not configured. Please configure it in WhatsApp Settings."),
-            title=_("Configuration Required"),
-            indicator="red",
-            raise_exception=False
-        )
-        return _("Token not configured")
-        
-    if not settings.url or not settings.version or not settings.business_id:
-        frappe.msgprint(
-            msg=_("WhatsApp settings are incomplete. Please configure URL, Version and Business ID."),
-            title=_("Configuration Required"),
-            indicator="red",
-            raise_exception=False
-        )
-        return _("Settings incomplete")
-
-    url = settings.url
-    version = settings.version
-    business_id = settings.business_id
-
-    headers = {"authorization": f"Bearer {token}", "content-type": "application/json"}
-
-    try:
-        # Use requests directly instead of make_request
         response = requests.get(
-            urljoin(url, f"{version}/{business_id}/message_templates"),
+            url,
             headers=headers,
-            timeout=30
+            timeout=30,
+            verify=config['verify'],
+            proxies=config['proxies']
         )
         
         # Handle HTTP errors explicitly
@@ -255,7 +237,7 @@ def fetch():
                 indicator="red",
                 raise_exception=False
             )
-            return _("Authorization error")
+            return "Authorization error"
             
         response.raise_for_status()
         response_data = response.json()
@@ -267,7 +249,7 @@ def fetch():
                 indicator="yellow",
                 raise_exception=False
             )
-            return _("No templates found")
+            return "No templates found"
 
         for template in response_data["data"]:
             # set flag to insert or update
@@ -325,11 +307,11 @@ def fetch():
                 pass
                 
         frappe.msgprint(
-            msg=_("Failed to fetch templates: {error_msg}"),
+            msg=_("Failed to fetch templates: {}").format(error_msg),
             title=_("Error"),
             indicator="red",
             raise_exception=False
         )
-        return _("Error: {error_msg}")
+        return "Error: {error_msg}"
 
-    return _("Successfully fetched templates from meta")
+    return "Successfully fetched templates from meta"

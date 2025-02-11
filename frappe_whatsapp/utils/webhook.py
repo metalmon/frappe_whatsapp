@@ -5,6 +5,7 @@ import requests
 import time
 from werkzeug.wrappers import Response
 import frappe.utils
+from frappe_whatsapp.utils.connection import get_connection_config, get_url
 
 
 @frappe.whitelist(allow_guest=True)
@@ -82,27 +83,38 @@ def post():
 							"WhatsApp Settings", "WhatsApp Settings",
 						)
 				token = settings.get_password("token")
-				url = f"{settings.url}/{settings.version}/"
-
-
-				media_id = message[message_type]["id"]
+				
+				# Get connection configuration
+				config = get_connection_config(settings)
 				headers = {
 					'Authorization': 'Bearer ' + token
-
 				}
-				response = requests.get(f'{url}{media_id}/', headers=headers)
+				headers.update(config['headers'])
+				
+				media_id = message[message_type]["id"]
+				url = get_url(f"{settings.url}/{settings.version}/{media_id}/", settings)
+				
+				response = requests.get(
+					url, 
+					headers=headers,
+					verify=config['verify'],
+					proxies=config['proxies']
+				)
 
 				if response.status_code == 200:
 					media_data = response.json()
-					media_url = media_data.get("url")
-					mime_type = media_data.get("mime_type")
-					file_extension = mime_type.split('/')[1]
-
-					media_response = requests.get(media_url, headers=headers)
+					media_url = get_url(media_data.get("url"), settings)
+					
+					media_response = requests.get(
+						media_url, 
+						headers=headers,
+						verify=config['verify'],
+						proxies=config['proxies']
+					)
 					if media_response.status_code == 200:
 
 						file_data = media_response.content
-						file_name = f"{frappe.generate_hash(length=10)}.{file_extension}"
+						file_name = f"{frappe.generate_hash(length=10)}.{media_data.get('mime_type').split('/')[1]}"
 
 						message_doc = frappe.get_doc({
 							"doctype": "WhatsApp Message",
