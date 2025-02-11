@@ -3,7 +3,7 @@
 import json
 import frappe
 from frappe.model.document import Document
-from frappe.integrations.utils import make_post_request
+from frappe_whatsapp.utils.connection import make_whatsapp_request
 
 
 class WhatsAppMessage(Document):
@@ -15,49 +15,56 @@ class WhatsAppMessage(Document):
             return
             
         if self.type == "Outgoing":
-            # For template messages, use send_template
-            if self.use_template or self.message_type == "Template":
-                if not self.message_id:  # Only send if not already sent
-                    self.send_template()
-                return
-            
-            # For non-template messages
-            if not self.message and self.content_type == "text":
-                frappe.throw("Message text is required for non-template messages")
-            
-            if self.attach and not self.attach.startswith("http"):
-                link = frappe.utils.get_url() + "/" + self.attach
-            else:
-                link = self.attach
-
-            data = {
-                "messaging_product": "whatsapp",
-                "to": self.format_number(self.to),
-                "type": self.content_type,
-            }
-            if self.is_reply and self.reply_to_message_id:
-                data["context"] = {"message_id": self.reply_to_message_id}
-            if self.content_type in ["document", "image", "video"]:
-                data[self.content_type.lower()] = {
-                    "link": link,
-                    "caption": self.message,
-                }
-            elif self.content_type == "reaction":
-                data["reaction"] = {
-                    "message_id": self.reply_to_message_id,
-                    "emoji": self.message,
-                }
-            elif self.content_type == "text":
-                data["text"] = {"preview_url": True, "body": self.message}
-            elif self.content_type == "audio":
-                data["text"] = {"link": link}
-
             try:
+                # For template messages
+                if self.template:  # Simplified condition
+                    self.message_type = "Template"
+                    if not self.message_id:  # Only send if not already sent
+                        self.send_template()
+                    return
+                
+                # For non-template messages
+                if not self.message and self.content_type == "text":
+                    frappe.throw(_("Message text is required for non-template messages"))
+                
+                # Set message type based on content type
+                self.message_type = "Manual"
+                
+                if self.attach and not self.attach.startswith("http"):
+                    link = frappe.utils.get_url() + "/" + self.attach
+                else:
+                    link = self.attach
+
+                data = {
+                    "messaging_product": "whatsapp",
+                    "to": self.format_number(self.to),
+                    "type": self.content_type,
+                }
+                
+                if self.is_reply and self.reply_to_message_id:
+                    data["context"] = {"message_id": self.reply_to_message_id}
+                    
+                if self.content_type in ["document", "image", "video"]:
+                    data[self.content_type.lower()] = {
+                        "link": link,
+                        "caption": self.message,
+                    }
+                elif self.content_type == "reaction":
+                    data["reaction"] = {
+                        "message_id": self.reply_to_message_id,
+                        "emoji": self.message,
+                    }
+                elif self.content_type == "text":
+                    data["text"] = {"preview_url": True, "body": self.message}
+                elif self.content_type == "audio":
+                    data["audio"] = {"link": link}
+
                 self.notify(data)
                 self.status = "Success"
+                
             except Exception as e:
                 self.status = "Failed"
-                frappe.throw(f"Failed to send message {str(e)}")
+                frappe.throw(_("Failed to send message: {0}").format(str(e)))
 
     def send_template(self):
         """Send template."""
@@ -121,43 +128,32 @@ class WhatsAppMessage(Document):
             frappe.throw(f"Failed to send template message: {str(e)}")
 
     def notify(self, data):
-        """Notify."""
-        settings = frappe.get_doc(
-            "WhatsApp Settings",
-            "WhatsApp Settings",
-        )
-        token = settings.get_password("token")
-
-        headers = {
-            "authorization": f"Bearer {token}",
-            "content-type": "application/json",
-        }
+        """Send WhatsApp message using base connection method."""
         try:
-            response = make_post_request(
-                f"{settings.url}/{settings.version}/{settings.phone_id}/messages",
-                headers=headers,
-                data=json.dumps(data),
+            settings = frappe.get_doc("WhatsApp Settings", "WhatsApp Settings")
+            response = make_whatsapp_request(
+                "POST",
+                f"{settings.version}/{settings.phone_id}/messages",
+                settings=settings,
+                data=data
             )
-            self.message_id = response["messages"][0]["id"]
-
+            self.message_id = response.json()["messages"][0]["id"]
         except Exception as e:
-            res = frappe.flags.integration_request.json()["error"]
-            error_message = res.get("Error", res.get("message"))
-            frappe.get_doc(
-                {
-                    "doctype": "WhatsApp Notification Log",
-                    "template": "Text Message",
-                    "meta_data": frappe.flags.integration_request.json(),
+            frappe.get_doc({
+                "doctype": "WhatsApp Notification Log",
+                "template": "Text Message",
+                "meta_data": {
+                    "error": str(e),
+                    "request_data": frappe.utils.mask_sensitive_data(str(data)),
+                    "response": frappe.utils.mask_sensitive_data(getattr(e, 'response', None) and e.response.text)
                 }
-            ).insert(ignore_permissions=True)
-
-            frappe.throw(msg=error_message, title=res.get("error_user_title", "Error"))
+            }).insert(ignore_permissions=True)
+            raise
 
     def format_number(self, number):
         """Format number."""
         if number.startswith("+"):
-            number = number[1 : len(number)]
-
+            number = number[1:]
         return number
 
 
@@ -179,7 +175,7 @@ def send_template(to, reference_doctype, reference_name, template):
             "reference_name": reference_name,
             "content_type": "text",
             "template": template,
-            "status": "Queued"  # Add initial status
+            "status": "Queued"
         })
         
         # Save without triggering before_insert
@@ -189,10 +185,10 @@ def send_template(to, reference_doctype, reference_name, template):
         # Enqueue the sending task
         frappe.enqueue(
             method="frappe_whatsapp.frappe_whatsapp.doctype.whatsapp_message.whatsapp_message.process_whatsapp_message",
-            queue="now",  # Changed from 'short' to 'now' for immediate processing
+            queue="now",
             timeout=300,
             message_id=doc.name,
-            now=True  # Added to ensure immediate processing
+            now=True
         )
         return doc.name
     except Exception as e:

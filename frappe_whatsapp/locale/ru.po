@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Frappe Whatsapp VERSION\n"
 "Report-Msgid-Bugs-To: shridhar.p@zerodha.com\n"
-"POT-Creation-Date: 2025-02-11 11:17+0000\n"
-"PO-Revision-Date: 2025-02-11 14:19+0300\n"
+"POT-Creation-Date: 2025-02-11 16:47+0000\n"
+"PO-Revision-Date: 2025-02-11 19:48+0300\n"
 "Last-Translator: AlexKuzin <dev@olimpicfresh.ru>\n"
 "Language-Team: shridhar.p@zerodha.com\n"
 "Language: ru\n"
@@ -81,6 +81,10 @@ msgstr ""
 "<br>\n"
 "doc._contact_list = [\"919123456789\"]\n"
 "</p> "
+
+#: frappe_whatsapp/utils/connection.py:242
+msgid "API Error"
+msgstr "Ошибка API"
 
 #. Option for the 'Category' (Select) field in DocType 'WhatsApp Templates'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
@@ -156,10 +160,6 @@ msgstr "Прикрепить с поля "
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
 msgid "Attach media from doctype field"
 msgstr "Прикрепите мультимедиа из поля доктайпа"
-
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:236
-msgid "Authorization Error"
-msgstr "Ошибка авторизации"
 
 #. Option for the 'DocType Event' (Select) field in DocType 'WhatsApp
 #. Notification'
@@ -299,7 +299,7 @@ msgstr "Дней до"
 msgid "Days Before or After"
 msgstr "Дней до или после"
 
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:177
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:217
 msgid "Deleted locally"
 msgstr "Удалено локально"
 
@@ -325,9 +325,9 @@ msgstr "Включено"
 msgid "Enter fields in the right sequence as per the template parameters."
 msgstr "Введите поля в правильной последовательности в соответствии с параметрами шаблона."
 
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:311
-msgid "Error"
-msgstr "Ошибка"
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:312
+msgid "Error synchronizing templates: {0}"
+msgstr "Ошибка синхронизации шаблонов: {0}"
 
 #. Label of the event_frequency (Select) field in DocType 'WhatsApp
 #. Notification'
@@ -352,14 +352,6 @@ msgstr "Пример: 8.8.8.8 (Google) или 1.1.1.1 (Cloudflare)"
 msgid "Example: http://proxy.example.com:8080 or socks5://proxy.example.com:1080"
 msgstr "Пример: http://proxy.example.com:8080 или socks5://proxy.example.com:1080"
 
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates_list.js:25
-msgid "Failed to fetch templates. Please try again."
-msgstr "Не удалось получить шаблоны. Пожалуйста, попробуйте еще раз."
-
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:310
-msgid "Failed to fetch templates: {}"
-msgstr "Не удалось получить шаблоны: {}"
-
 #: frappe_whatsapp/public/js/frappe_whatsapp.js:72
 msgid "Failed to queue WhatsApp message"
 msgstr "Не удалось поставить сообщение WhatsApp в очередь"
@@ -367,6 +359,10 @@ msgstr "Не удалось поставить сообщение WhatsApp в о
 #: frappe_whatsapp/public/js/frappe_whatsapp.js:111
 msgid "Failed to send WhatsApp message"
 msgstr "Не удалось отправить сообщение WhatsApp"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.py:67
+msgid "Failed to send message: {0}"
+msgstr "Не удалось отправить сообщение: {0}"
 
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.js:62
 msgid "Failed to trigger notifications"
@@ -480,9 +476,13 @@ msgstr "IMAGE"
 msgid "Incoming"
 msgstr "Входящие"
 
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:235
-msgid "Invalid or expired Meta token. Please check your WhatsApp settings."
-msgstr "Недействительный или просроченный Мета-токен. Пожалуйста, проверьте настройки WhatsApp."
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.py:87
+msgid "Invalid proxy port number."
+msgstr "Неверный номер порта прокси."
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.py:78
+msgid "Invalid proxy protocol. Only http, https, socks4, and socks5 are allowed."
+msgstr "Неверный протокол прокси. Разрешены только http, https, socks4 и socks5."
 
 #. Label of the is_reply (Check) field in DocType 'WhatsApp Message'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
@@ -533,6 +533,10 @@ msgstr "ID сообщения"
 msgid "Message Type"
 msgstr "Тип сообщения"
 
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.py:28
+msgid "Message text is required for non-template messages"
+msgstr "Текст сообщения требуется для нешаблонных сообщений"
+
 #. Label of the meta_data (JSON) field in DocType 'WhatsApp Notification Log'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification_log/whatsapp_notification_log.json
 msgid "Meta Data"
@@ -562,17 +566,9 @@ msgstr "Ежемесячно"
 msgid "Monthly Long"
 msgstr "Длительно ежемесячно"
 
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:248
-msgid "No Templates"
-msgstr "Нет шаблонов"
-
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.js:58
 msgid "No alerts for today"
 msgstr "Сегодня нет оповещений"
-
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:247
-msgid "No templates found in Meta account."
-msgstr "В Мета-аккаунте не найдено шаблонов."
 
 #. Label of the notification_name (Data) field in DocType 'WhatsApp
 #. Notification'
@@ -628,10 +624,18 @@ msgstr "Настройки прокси"
 msgid "Proxy URL"
 msgstr "URL прокси-сервера"
 
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.py:83
+msgid "Proxy URL contains invalid characters."
+msgstr "URL-адрес прокси содержит недопустимые символы."
+
 #. Label of the proxy_username (Data) field in DocType 'WhatsApp Settings'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
 msgid "Proxy Username"
 msgstr "Имя пользователя прокси-сервера"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.py:143
+msgid "Proxy credentials contain invalid characters."
+msgstr "Учетные данные прокси содержат недопустимые символы."
 
 #. Label of the date_changed (Select) field in DocType 'WhatsApp Notification'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
@@ -784,6 +788,10 @@ msgstr "Название шаблона"
 msgid "Template Parameters"
 msgstr "Параметры шаблона"
 
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:304
+msgid "Templates synchronized successfully. Added {0} new, updated {1} existing."
+msgstr "Шаблоны успешно синхронизированы. Добавлено {0} новых, обновлено {1} существующих."
+
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.js:7
 msgid "Test Connection"
 msgstr "Тест подключения"
@@ -853,6 +861,10 @@ msgstr "Еженедельно"
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
 msgid "Weekly Long"
 msgstr "Еженедельные длинные"
+
+#: frappe_whatsapp/utils/connection.py:241
+msgid "WhatsApp API request failed: {}"
+msgstr "Запрос API WhatsApp завершился неудачей: {}"
 
 #. Name of a DocType
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json

@@ -8,23 +8,17 @@ frappe.listview_settings['WhatsApp Templates'] = {
 				freeze_message: __("Fetching templates from Meta..."),
 				callback: function(res) {
 					if (res.message) {
-						// Check if it's an error message
-						if (res.message.startsWith('Error:')) {
-							// Error already shown via msgprint
-						} else {
-							frappe.show_alert({
-								message: res.message,
-								indicator: res.message.includes('Successfully') ? 'green' : 'yellow'
-							});
+						let indicator = res.message.status === 'success' ? 'green' : 'red';
+						
+						frappe.show_alert({
+							message: res.message.message,
+							indicator: indicator
+						});
+						
+						if (res.message.status === 'success') {
+							listview.refresh();
 						}
-						listview.refresh();
 					}
-				},
-				error: function(err) {
-					frappe.show_alert({
-						message: __("Failed to fetch templates. Please try again."),
-						indicator: 'red'
-					});
 				}
 			});
 		});
