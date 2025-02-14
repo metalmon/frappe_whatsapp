@@ -2,8 +2,9 @@
 # For license information, please see license.txt
 import json
 import frappe
+from frappe import _
 from frappe.model.document import Document
-from frappe_whatsapp.utils.connection import make_whatsapp_request
+from frappe_whatsapp.utils.connection import make_whatsapp_request, mask_sensitive_data
 
 
 class WhatsAppMessage(Document):
@@ -144,8 +145,8 @@ class WhatsAppMessage(Document):
                 "template": "Text Message",
                 "meta_data": {
                     "error": str(e),
-                    "request_data": frappe.utils.mask_sensitive_data(str(data)),
-                    "response": frappe.utils.mask_sensitive_data(getattr(e, 'response', None) and e.response.text)
+                    "request_data": mask_sensitive_data(str(data)),
+                    "response": mask_sensitive_data(getattr(e, 'response', None) and e.response.text)
                 }
             }).insert(ignore_permissions=True)
             raise
