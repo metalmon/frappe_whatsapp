@@ -9,23 +9,89 @@ import magic
 from frappe.model.document import Document
 from frappe.integrations.utils import make_post_request, make_request
 from frappe.desk.form.utils import get_pdf_link
-
+from frappe.utils.password import get_decrypted_password
+from frappe import _
+from frappe_whatsapp.utils.connection import get_connection_config, get_url, make_whatsapp_request
 
 class WhatsAppTemplates(Document):
-    """Create whatsapp template."""
+    """WhatsApp Templates."""
 
     def validate(self):
+        """Validate."""
         if not self.language_code or self.has_value_changed("language"):
             lang_code = frappe.db.get_value("Language", self.language) or "en"
             self.language_code = lang_code.replace("-", "_")
 
-        if self.header_type in ["IMAGE", "DOCUMENT"] and self.sample:
-            self.get_session_id()
-            self.get_media_id()
+        if self.header_type in ["IMAGE", "DOCUMENT"]:
+            # Only get new media ID if sample file changed or doesn't exist
+            if self.has_value_changed("sample") or not hasattr(self, '_media_id'):
+                self.get_session_id()
+                self.get_media_id()
 
-        if not self.is_new():
+        # Track which fields have changed for update
+        self._changed_components = []
+        if self.has_value_changed("template"):
+            self._changed_components.append("BODY")
+        if self.has_value_changed("header") or self.has_value_changed("header_type") or self.has_value_changed("sample"):
+            self._changed_components.append("HEADER")
+        if self.has_value_changed("footer"):
+            self._changed_components.append("FOOTER")
+
+        # If document exists and components changed, update template
+        if not self.is_new() and self._changed_components:
+            self.get_settings()
             self.update_template()
 
+    def update_template(self):
+        """Update template to meta."""
+        data = {
+            "components": []
+        }
+
+        # Add body component with sample values if changed
+        if "BODY" in self._changed_components:
+            body = {
+                "type": "BODY",
+                "text": self.template,
+            }
+            if self.sample_values:
+                body.update({"example": {"body_text": [self.sample_values.split(",")]}})
+            data["components"].append(body)
+
+        # Add header if changed
+        if "HEADER" in self._changed_components and self.header_type:
+            data["components"].append(self.get_header())
+
+        # Add footer if changed
+        if "FOOTER" in self._changed_components and self.footer:
+            data["components"].append({"type": "FOOTER", "text": self.footer})
+
+        if not data["components"]:
+            return
+
+        try:
+            make_whatsapp_request(
+                "POST",
+                f"{self._version}/{self.id}",
+                settings=self._settings,
+                data=data
+            )
+        except Exception as e:
+            frappe.throw(str(e))
+
+    def before_save(self):
+        """Before save."""
+        if not self.actual_name:
+            self.actual_name = self.template_name.lower().replace(" ", "_")
+        
+        # Track which fields have changed for update
+        self._changed_components = []
+        if self.has_value_changed("template"):
+            self._changed_components.append("BODY")
+        if self.has_value_changed("header") or self.has_value_changed("header_type") or self.has_value_changed("sample"):
+            self._changed_components.append("HEADER")
+        if self.has_value_changed("footer"):
+            self._changed_components.append("FOOTER")
 
     def get_session_id(self):
         """Upload media."""
@@ -40,145 +106,117 @@ class WhatsAppTemplates(Document):
             'messaging_product': 'whatsapp'
         }
 
-        response = make_post_request(
-            f"{self._url}/{self._version}/{self._app_id}/uploads",
-            headers=self._headers,
-            data=json.loads(json.dumps(payload))
-        )
-        self._session_id = response['id']
+        try:
+            response = make_whatsapp_request(
+                "POST",
+                f"{self._version}/{self._app_id}/uploads",
+                settings=self._settings,
+                data=payload
+            )
+            self._session_id = response.json()['id']
+        except Exception as e:
+            frappe.throw(str(e))
 
     def get_media_id(self):
+        """Get media ID after uploading file."""
         self.get_settings()
-
-        headers = {
-                "authorization": f"OAuth {self._token}"
-            }
         file_name = self.get_absolute_path(self.sample)
-        with open(file_name, mode='rb') as file: # b is important -> binary
-            file_content = file.read()
-
-        payload = file_content
-        response = make_post_request(
-            f"{self._url}/{self._version}/{self._session_id}",
-            headers=headers,
-            data=payload
-        )
-
-        self._media_id = response['h']
+        
+        try:
+            with open(file_name, mode='rb') as file:
+                file_content = file.read()
+                
+            response = make_whatsapp_request(
+                "POST",
+                f"{self._version}/{self._session_id}",
+                settings=self._settings,
+                data=file_content,
+                headers={"Content-Type": "application/octet-stream"}
+            )
+            self._media_id = response.json()['h']
+            # Store media_id in db for future reference
+            self.media_id = self._media_id
+        except Exception as e:
+            frappe.throw(str(e))
 
     def get_absolute_path(self, file_name):
-        if(file_name.startswith('/files/')):
+        """Get absolute path of file."""
+        if not file_name:
+            return None
+            
+        if file_name.startswith('/files/'):
             file_path = f'{frappe.utils.get_bench_path()}/sites/{frappe.utils.get_site_base_path()[2:]}/public{file_name}'
-        if(file_name.startswith('/private/')):
+        if file_name.startswith('/private/'):
             file_path = f'{frappe.utils.get_bench_path()}/sites/{frappe.utils.get_site_base_path()[2:]}{file_name}'
         return file_path
 
-
     def after_insert(self):
-        if self.template_name:
-            self.actual_name = self.template_name.lower().replace(" ", "_")
-
+        """After insert."""
         self.get_settings()
         data = {
             "name": self.actual_name,
             "language": self.language_code,
             "category": self.category,
-            "components": [],
+            "components": []
         }
 
+        # Add body component with sample values
         body = {
             "type": "BODY",
             "text": self.template,
         }
         if self.sample_values:
             body.update({"example": {"body_text": [self.sample_values.split(",")]}})
-
         data["components"].append(body)
+
+        # Add header if specified
         if self.header_type:
             data["components"].append(self.get_header())
 
-        # add footer
+        # Add footer if specified
         if self.footer:
             data["components"].append({"type": "FOOTER", "text": self.footer})
 
         try:
-            response = make_post_request(
-                f"{self._url}/{self._version}/{self._business_id}/message_templates",
-                headers=self._headers,
-                data=json.dumps(data),
+            response = make_whatsapp_request(
+                "POST",
+                f"{self._version}/{self._business_id}/message_templates",
+                settings=self._settings,
+                data=data
             )
-            self.id = response["id"]
-            self.status = response["status"]
+            template_data = response.json()
+            self.id = template_data.get("id")
+            self.status = template_data.get("status")
             self.db_update()
         except Exception as e:
-            res = frappe.flags.integration_request.json()["error"]
-            error_message = res.get("error_user_msg", res.get("message"))
-            frappe.throw(
-                msg=error_message,
-                title=res.get("error_user_title", "Error"),
-            )
-
-    def update_template(self):
-        """Update template to meta."""
-        self.get_settings()
-        data = {"components": []}
-
-        body = {
-            "type": "BODY",
-            "text": self.template,
-        }
-        if self.sample_values:
-            body.update({"example": {"body_text": [self.sample_values.split(",")]}})
-        data["components"].append(body)
-        if self.header_type:
-            data["components"].append(self.get_header())
-        if self.footer:
-            data["components"].append({"type": "FOOTER", "text": self.footer})
-        try:
-            # post template to meta for update
-            make_post_request(
-                f"{self._url}/{self._version}/{self.id}",
-                headers=self._headers,
-                data=json.dumps(data),
-            )
-        except Exception as e:
-            raise e
-            # res = frappe.flags.integration_request.json()['error']
-            # frappe.throw(
-            #     msg=res.get('error_user_msg', res.get("message")),
-            #     title=res.get("error_user_title", "Error"),
-            # )
+            frappe.throw(str(e))
 
     def get_settings(self):
         """Get whatsapp settings."""
-        settings = frappe.get_doc("WhatsApp Settings", "WhatsApp Settings")
-        self._token = settings.get_password("token")
-        self._url = settings.url
-        self._version = settings.version
-        self._business_id = settings.business_id
-        self._app_id = settings.app_id
-
-        self._headers = {
-            "authorization": f"Bearer {self._token}",
-            "content-type": "application/json",
-        }
+        self._settings = frappe.get_doc("WhatsApp Settings", "WhatsApp Settings")
+        self._version = self._settings.version
+        self._business_id = self._settings.business_id
+        self._app_id = self._settings.app_id
+        
+        # Restore media_id from db if exists
+        if hasattr(self, 'media_id') and self.media_id:
+            self._media_id = self.media_id
 
     def on_trash(self):
+        """Delete template from Meta."""
         self.get_settings()
-        url = f"{self._url}/{self._version}/{self._business_id}/message_templates?name={self.actual_name}"
         try:
-            make_request("DELETE", url, headers=self._headers)
-        except Exception:
-            res = frappe.flags.integration_request.json()["error"]
-            if res.get("error_user_title") == "Message Template Not Found":
-                frappe.msgprint(
-                    "Deleted locally", res.get("error_user_title", "Error"), alert=True
-                )
+            make_whatsapp_request(
+                "DELETE",
+                f"{self._version}/{self._business_id}/message_templates",
+                settings=self._settings,
+                params={"name": self.actual_name}
+            )
+        except Exception as e:
+            if "Message Template Not Found" in str(e):
+                frappe.msgprint(_("Deleted locally"), alert=True)
             else:
-                frappe.throw(
-                    msg=res.get("error_user_msg"),
-                    title=res.get("error_user_title", "Error"),
-                )
+                frappe.throw(str(e))
 
     def get_header(self):
         """Get header format."""
@@ -189,46 +227,46 @@ class WhatsAppTemplates(Document):
                 samples = self.sample.split(", ")
                 header.update({"example": {"header_text": samples}})
         else:
-            pdf_link = ''
-            if not self.sample:
+            if not self.sample and not self.media_id:
                 key = frappe.get_doc(self.doctype, self.name).get_document_share_key()
                 link = get_pdf_link(self.doctype, self.name)
                 pdf_link = f"{frappe.utils.get_url()}{link}&key={key}"
-            header.update({"example": {"header_handle": [self._media_id]}})
+                header.update({"example": {"header_handle": [pdf_link]}})
+            else:
+                # Use stored media_id
+                header.update({"example": {"header_handle": [self._media_id]}})
 
         return header
 
 
 @frappe.whitelist()
 def fetch():
-    """Fetch templates from meta."""
-
-    # get credentials
+    """Fetch templates from Meta."""
     settings = frappe.get_doc("WhatsApp Settings", "WhatsApp Settings")
-    token = settings.get_password("token")
-    url = settings.url
-    version = settings.version
-    business_id = settings.business_id
-
-    headers = {"authorization": f"Bearer {token}", "content-type": "application/json"}
-
+    
     try:
-        response = make_request(
+        response = make_whatsapp_request(
             "GET",
-            f"{url}/{version}/{business_id}/message_templates",
-            headers=headers,
+            f"{settings.version}/{settings.business_id}/message_templates",
+            settings=settings
         )
-
-        for template in response["data"]:
+        templates = response.json().get("data", [])
+        
+        templates_count = 0
+        updated_count = 0
+        
+        for template in templates:
             # set flag to insert or update
             flags = 1
             if frappe.db.exists("WhatsApp Templates", {"actual_name": template["name"]}):
                 doc = frappe.get_doc("WhatsApp Templates", {"actual_name": template["name"]})
+                updated_count += 1
             else:
                 flags = 0
                 doc = frappe.new_doc("WhatsApp Templates")
                 doc.template_name = template["name"]
                 doc.actual_name = template["name"]
+                templates_count += 1
 
             doc.status = template["status"]
             doc.language_code = template["language"]
@@ -237,18 +275,15 @@ def fetch():
 
             # update components
             for component in template["components"]:
-
                 # update header
                 if component["type"] == "HEADER":
                     doc.header_type = component["format"]
-
                     # if format is text update sample text
                     if component["format"] == "TEXT":
                         doc.header = component["text"]
                 # Update footer text
                 elif component["type"] == "FOOTER":
                     doc.footer = component["text"]
-
                 # update template text
                 elif component["type"] == "BODY":
                     doc.template = component["text"]
@@ -258,19 +293,21 @@ def fetch():
                         )
 
             # if document exists update else insert
-            # used db_update and db_insert to ignore hooks
             if flags:
                 doc.db_update()
             else:
                 doc.db_insert()
             frappe.db.commit()
-
+        
+        return {
+            "status": "success",
+            "message": frappe._("Templates synchronized successfully. Added {0} new, updated {1} existing.").format(
+                templates_count, 
+                updated_count
+            )
+        }
     except Exception as e:
-        res = frappe.flags.integration_request.json()["error"]
-        error_message = res.get("error_user_msg", res.get("message"))
-        frappe.throw(
-            msg=error_message,
-            title=res.get("error_user_title", "Error"),
-        )
-
-    return "Successfully fetched templates from meta"
+        return {
+            "status": "error",
+            "message": frappe._("Error synchronizing templates: {0}").format(str(e))
+        }
