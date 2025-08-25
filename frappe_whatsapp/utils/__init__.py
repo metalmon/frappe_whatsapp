@@ -2,7 +2,6 @@
 import frappe
 
 from frappe.core.doctype.server_script.server_script_utils import EVENT_MAP
-from frappe_whatsapp.utils.cache import clear_doctype_cache
 
 
 def run_server_script_for_doc_event(doc, event):
@@ -108,8 +107,16 @@ def trigger_whatsapp_notifications_monthly_long():
 
 def trigger_whatsapp_notifications(event):
     """Run cron."""
-    frappe.get_doc(
+    wa_notify_list = frappe.get_list(
         "WhatsApp Notification",
-        frappe.db.get_value("WhatsApp Notification", filters={"event_frequency": event})
-    ).send_scheduled_message()
-    pass
+        filters={
+            "event_frequency": event,
+            "disabled": 0,
+        }
+    )
+
+    for wa in wa_notify_list:
+        frappe.get_doc(
+            "WhatsApp Notification",
+            wa.name,
+        ).send_scheduled_message()
