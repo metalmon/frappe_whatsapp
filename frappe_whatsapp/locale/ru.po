@@ -7,22 +7,27 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Frappe Whatsapp VERSION\n"
 "Report-Msgid-Bugs-To: shridhar.p@zerodha.com\n"
-"POT-Creation-Date: 2025-02-12 15:20+0000\n"
-"PO-Revision-Date: 2025-02-11 19:48+0300\n"
+"POT-Creation-Date: 2025-08-25 22:11+0000\n"
+"PO-Revision-Date: 2025-08-26 02:17+0400\n"
 "Last-Translator: AlexKuzin <dev@olimpicfresh.ru>\n"
-"Language: ru\n"
 "Language-Team: shridhar.p@zerodha.com\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.13.1\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Generated-By: Babel 2.16.0\n"
+"X-Generator: Poedit 3.5\n"
 
 #. Label of the attach_document_print (Check) field in DocType 'WhatsApp
 #. Notification'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
 msgid " Attach Document Print"
 msgstr " Прикрепить печатный документ"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.js:32
+msgid "${r.message} recipients imported successfully"
+msgstr "${r.message} получатели успешно импортированы"
 
 #. Content of the 'help_html' (HTML) field in DocType 'WhatsApp Notification'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
@@ -47,12 +52,27 @@ msgid ""
 "), days=-5, as_string=True, as_datetime=True) </code></pre><p></p>\n"
 "\n"
 "<p>\n"
-"\t<b>\n"
-"\t\tFinally set the contact list to send messages. This should be set only in case of scheduled events.\n"
-"\t</b>\n"
+"\t<strong>For scheduled events, use </strong>\n"
 "<br>\n"
-"doc._contact_list = [\"919123456789\"]\n"
-"</p> "
+"1. Simple template sending, without parameters, just send a template\n"
+"</p><pre><code class=\"language-python\">\n"
+"doc.set(\"_contact_list\", [\"919123456789\"])\n"
+"</code>\n"
+"</pre>\n"
+"\n"
+"2. Message based on doctype with parameters\n"
+"<pre><code class=\"language-python\">\n"
+"quotation_list = frappe.get_list(\"Quotation\", {\"name\": \"VEN-COT-24-29806\", \"custom_whatsapp_notify\": 0})\n"
+"for qo in quotation_list:\n"
+"\tdata_list.append({\n"
+"\t\t\"name\": qo.name,\n"
+"\t\t\"phone_no\": \"5548996436821\",\n"
+"\t})\n"
+"doc.set(\"_data_list\", data_list)\n"
+"</code>\n"
+"</pre>\n"
+"\n"
+"<p></p> "
 msgstr ""
 "<pre><code>doc.grand_total &gt; 0</code></pre>\n"
 "\n"
@@ -74,12 +94,27 @@ msgstr ""
 "), days=-5, as_string=True, as_datetime=True) </code></pre><p></p>\n"
 "\n"
 "<p>\n"
-"\t<b>\n"
-"\t\tНаконец, установите список контактов для отправки сообщений. Этот параметр должен быть задан только в случае запланированных событий.\n"
-"\t</b>\n"
+"\t<strong>Для запланированных событий используйте </strong>\n"
 "<br>\n"
-"doc._contact_list = [\"919123456789\"]\n"
-"</p> "
+"1. Простая отправка шаблона, без параметров, просто отправьте шаблон\n"
+"</p><pre><code class=\"language-python\">\n"
+"doc.set(\"_contact_list\", [\"919123456789\"])\n"
+"</code>\n"
+"</pre>\n"
+"\n"
+"2. Сообщение на основе doctype с параметрами\n"
+"<pre><code class=\"language-python\">\n"
+"quotation_list = frappe.get_list(\"Quotation\", {\"name\": \"VEN-COT-24-29806\", \"custom_whatsapp_notify\": 0})\n"
+"for qo in quotation_list:\n"
+"\tdata_list.append({\n"
+"\t\t\"имя\": qo.name,\n"
+"\t\t\"phone_no\": \"5548996436821\",\n"
+"\t})\n"
+"doc.set(\"_data_list\", data_list)\n"
+"</code>\n"
+"</pre>\n"
+"\n"
+"<p></p> "
 
 #: frappe_whatsapp/utils/connection.py:242
 msgid "API Error"
@@ -90,9 +125,14 @@ msgstr "Ошибка API"
 msgid "AUTHENTICATION"
 msgstr "AUTHENTICATION"
 
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.js:71
-msgid "Actions"
-msgstr "Действия"
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.js:48
+msgid "Add"
+msgstr "Добавить"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.js:40
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.js:42
+msgid "Add Test Recipient"
+msgstr "Добавить получателя теста"
 
 #. Option for the 'DocType Event' (Select) field in DocType 'WhatsApp
 #. Notification'
@@ -136,17 +176,39 @@ msgstr "После проведения"
 msgid "All"
 msgstr "Все"
 
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.js:122
+msgid "All recipients have valid numbers"
+msgstr "Все получатели имеют действительные номера"
+
+#. Label of the amended_from (Link) field in DocType 'Bulk WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.json
+msgid "Amended From"
+msgstr "Изменено"
+
 #. Label of the app_id (Data) field in DocType 'WhatsApp Settings'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
 msgid "App ID"
 msgstr "App ID"
 
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.py:14
+msgid "At least one recipient is required"
+msgstr "Требуется как минимум один получатель"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.py:31
+msgid "At least one recipient or a recipient list is required"
+msgstr "Требуется хотя бы один получатель или список получателей"
+
 #. Label of the attach (Attach) field in DocType 'WhatsApp Message'
 #. Label of the attach (Attach) field in DocType 'WhatsApp Notification'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.py:31
 msgid "Attach"
 msgstr "Прикрепить"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.py:32
+msgid "Attach from field"
+msgstr "Прикрепить с поля"
 
 #. Label of the attach_from_field (Data) field in DocType 'WhatsApp
 #. Notification'
@@ -202,6 +264,16 @@ msgstr "Перед проведением"
 msgid "Before Validate"
 msgstr "Перед проверкой"
 
+#. Name of a DocType
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.json
+msgid "Bulk WhatsApp Message"
+msgstr "Массовые сообщения WhatsApp"
+
+#. Name of a report
+#: frappe_whatsapp/frappe_whatsapp/report/bulk_whatsapp_status/bulk_whatsapp_status.json
+msgid "Bulk WhatsApp Status"
+msgstr "Массовые статусы WhatsApp"
+
 #. Label of the business_id (Data) field in DocType 'WhatsApp Settings'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
 msgid "Business ID"
@@ -212,25 +284,19 @@ msgstr "Business ID"
 msgid "Category"
 msgstr "Категория"
 
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.js:5
+msgid "Check Progress"
+msgstr "Проверьте прогресс"
+
+#. Option for the 'Status' (Select) field in DocType 'Bulk WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.json
+msgid "Completed"
+msgstr "Завершено"
+
 #. Label of the condition (Code) field in DocType 'WhatsApp Notification'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
 msgid "Condition"
 msgstr "Условие"
-
-#. Label of the connection_settings_section (Section Break) field in DocType
-#. 'WhatsApp Settings'
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
-msgid "Connection Settings"
-msgstr "Настройки соединения"
-
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.js:61
-msgid "Connection Test Results"
-msgstr "Результаты тестирования соединений"
-
-#. Label of the connection_type (Select) field in DocType 'WhatsApp Settings'
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
-msgid "Connection Type"
-msgstr "Тип соединения"
 
 #. Label of the content_type (Select) field in DocType 'WhatsApp Message'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
@@ -246,23 +312,11 @@ msgstr "ID диалога"
 msgid "Created On"
 msgstr "Создано"
 
-#. Option for the 'Connection Type' (Select) field in DocType 'WhatsApp
-#. Settings'
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
-msgid "Custom DNS"
-msgstr "Пользовательский DNS"
-
 #. Label of the custom_attachment (Check) field in DocType 'WhatsApp
 #. Notification'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
 msgid "Custom attachment"
 msgstr "Пользовательское вложение"
-
-#. Label of the dns_settings_section (Section Break) field in DocType 'WhatsApp
-#. Settings'
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
-msgid "DNS Settings"
-msgstr "Настройки DNS"
 
 #. Option for the 'Header Type' (Select) field in DocType 'WhatsApp Templates'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
@@ -281,6 +335,11 @@ msgstr "Ежедневно"
 msgid "Daily Long"
 msgstr "Ежедневно долго"
 
+#. Label of the data_fields (Code) field in DocType 'WhatsApp Recipient List'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.json
+msgid "Data fields"
+msgstr "Поля данных"
+
 #. Option for the 'DocType Event' (Select) field in DocType 'WhatsApp
 #. Notification'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
@@ -298,9 +357,11 @@ msgstr "Дней до"
 msgid "Days Before or After"
 msgstr "Дней до или после"
 
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:217
-msgid "Deleted locally"
-msgstr "Удалено локально"
+#. Label of the description (Small Text) field in DocType 'WhatsApp Recipient
+#. List'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.json
+msgid "Description"
+msgstr "Описание"
 
 #. Label of the disabled (Check) field in DocType 'WhatsApp Notification'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
@@ -314,6 +375,21 @@ msgstr "Отключено"
 msgid "DocType Event"
 msgstr "Событие ДокТайпа"
 
+#. Label of the doctype_to_import (Link) field in DocType 'WhatsApp Recipient
+#. List'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.json
+msgid "DocType to Import"
+msgstr "Доктайп для импорта"
+
+#. Option for the 'Status' (Select) field in DocType 'Bulk WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.json
+msgid "Draft"
+msgstr "Черновик"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.py:30
+msgid "Either {0} a file or add a {1} to send attachemt"
+msgstr "Либо {0} файл, либо добавьте {1}, чтобы отправить файл"
+
 #. Label of the enabled (Check) field in DocType 'WhatsApp Settings'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
 msgid "Enabled"
@@ -324,56 +400,19 @@ msgstr "Включено"
 msgid "Enter fields in the right sequence as per the template parameters."
 msgstr "Введите поля в правильной последовательности в соответствии с параметрами шаблона."
 
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:312
-msgid "Error synchronizing templates: {0}"
-msgstr "Ошибка синхронизации шаблонов: {0}"
-
 #. Label of the event_frequency (Select) field in DocType 'WhatsApp
 #. Notification'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
 msgid "Event Frequency"
 msgstr "Частота повторения события"
 
-#. Description of the 'Secondary DNS Server' (Data) field in DocType 'WhatsApp
-#. Settings'
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
-msgid "Example: 8.8.4.4 (Google) or 1.0.0.1 (Cloudflare)"
-msgstr "Пример: 8.8.4.4 (Google) или 1.0.0.1 (Cloudflare)"
-
-#. Description of the 'Primary DNS Server' (Data) field in DocType 'WhatsApp
-#. Settings'
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
-msgid "Example: 8.8.8.8 (Google) or 1.1.1.1 (Cloudflare)"
-msgstr "Пример: 8.8.8.8 (Google) или 1.1.1.1 (Cloudflare)"
-
-#. Description of the 'Proxy URL' (Data) field in DocType 'WhatsApp Settings'
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
-msgid "Example: http://proxy.example.com:8080 or socks5://proxy.example.com:1080"
-msgstr "Пример: http://proxy.example.com:8080 или socks5://proxy.example.com:1080"
-
-#: frappe_whatsapp/public/js/frappe_whatsapp.js:72
-msgid "Failed to queue WhatsApp message"
-msgstr "Не удалось поставить сообщение WhatsApp в очередь"
-
-#: frappe_whatsapp/public/js/frappe_whatsapp.js:111
-msgid "Failed to send WhatsApp message"
-msgstr "Не удалось отправить сообщение WhatsApp"
-
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.py:67
-msgid "Failed to send message: {0}"
-msgstr "Не удалось отправить сообщение: {0}"
-
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.js:62
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.js:65
 msgid "Failed to trigger notifications"
 msgstr "Не удалось запустить уведомления"
 
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates_list.js:4
 msgid "Fetch templates from meta"
 msgstr "Получить шаблоны из МЕТА"
-
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates_list.js:8
-msgid "Fetching templates from Meta..."
-msgstr "Получение шаблонов из Meta..."
 
 #. Label of the field_name (Data) field in DocType 'WhatsApp Notification'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
@@ -384,6 +423,22 @@ msgstr "Имя поля"
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message_fields/whatsapp_message_fields.json
 msgid "Field name"
 msgstr "Имя поля"
+
+#. Description of the 'Mobile Number Field' (Data) field in DocType 'WhatsApp
+#. Recipient List'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.json
+msgid "Field name containing the mobile number"
+msgstr "Имя поля, содержащего номер мобильного телефона"
+
+#. Description of the 'Name Field' (Data) field in DocType 'WhatsApp Recipient
+#. List'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.json
+msgid "Field name containing the recipient name (optional)"
+msgstr "Имя поля, содержащее имя получателя (необязательно)"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.py:27
+msgid "Field name {0} does not exists"
+msgstr "Имя поля {0} не существует"
 
 #. Label of the field_names (Small Text) field in DocType 'WhatsApp Templates'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
@@ -396,6 +451,10 @@ msgstr "Названия полей"
 msgid "Field names to replace the value in templates"
 msgstr "Имена полей для замены значения в шаблонах"
 
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.py:38
+msgid "Field {0} not found on DocType {1}"
+msgstr "Поле {0} не найдено в доктайпе {1}"
+
 #. Label of the fields (Table) field in DocType 'WhatsApp Notification'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
 msgid "Fields"
@@ -405,6 +464,12 @@ msgstr "Поля"
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
 msgid "File name"
 msgstr "Имя файла"
+
+#. Label of the import_filters (Code) field in DocType 'WhatsApp Recipient
+#. List'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.json
+msgid "Filters"
+msgstr "Фильтры"
 
 #. Label of the footer (Data) field in DocType 'WhatsApp Templates'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
@@ -426,7 +491,16 @@ msgstr "Для V16 используйте UTILITY и AUTHENTICATION вместо
 msgid "From"
 msgstr "От кого"
 
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.js:49
+#: frappe_whatsapp/frappe_whatsapp/report/bulk_whatsapp_status/bulk_whatsapp_status.js:5
+msgid "From Date"
+msgstr "Дата: от"
+
+#. Label of the from_number (Data) field in DocType 'Bulk WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.json
+msgid "From WhatsApp Number"
+msgstr "С номера WhatsApp"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.js:52
 msgid "Get Alerts for Today"
 msgstr "Получить уведомления на сегодня"
 
@@ -470,23 +544,71 @@ msgstr "ID"
 msgid "IMAGE"
 msgstr "IMAGE"
 
+#. Label of the import_from_doctype (Check) field in DocType 'WhatsApp
+#. Recipient List'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.json
+msgid "Import From DocType"
+msgstr "Импорт из доктайпа"
+
+#. Label of the import_limit (Int) field in DocType 'WhatsApp Recipient List'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.json
+msgid "Import Limit"
+msgstr "Ограничение на импорт"
+
+#. Label of the import_section (Section Break) field in DocType 'WhatsApp
+#. Recipient List'
+#. Label of the import_button (Button) field in DocType 'WhatsApp Recipient
+#. List'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.json
+msgid "Import Recipients"
+msgstr "Импорт получателей"
+
+#. Option for the 'Status' (Select) field in DocType 'Bulk WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.json
+msgid "In Progress"
+msgstr "В процессе"
+
 #. Option for the 'Type' (Select) field in DocType 'WhatsApp Message'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
 msgid "Incoming"
 msgstr "Входящие"
 
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.py:87
-msgid "Invalid proxy port number."
-msgstr "Неверный номер порта прокси."
+#. Option for the 'Recipient Type' (Select) field in DocType 'Bulk WhatsApp
+#. Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.json
+msgid "Individual"
+msgstr "Индивидуально"
 
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.py:78
-msgid "Invalid proxy protocol. Only http, https, socks4, and socks5 are allowed."
-msgstr "Неверный протокол прокси. Разрешены только http, https, socks4 и socks5."
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.js:14
+msgid "Invalid JSON in Filters field"
+msgstr "Неверный JSON в поле \"Фильтры\""
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.js:60
+msgid "Invalid JSON in Recipient Data field"
+msgstr "Неверный JSON в поле \"Данные получателя\""
 
 #. Label of the is_reply (Check) field in DocType 'WhatsApp Message'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
 msgid "Is Reply"
 msgstr "Ответное сообщение"
+
+#. Description of the 'Data fields' (Code) field in DocType 'WhatsApp Recipient
+#. List'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.json
+msgid "JSON fields to apply when importing (optional) [\"full_name\", \"email\"]"
+msgstr "Поля JSON, которые нужно применить при импорте (необязательно) [\"full_name\", \"email\"]"
+
+#. Description of the 'Filters' (Code) field in DocType 'WhatsApp Recipient
+#. List'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.json
+msgid "JSON filters to apply when importing (optional) Ex: {\"email\": \"admin@example.com\"}"
+msgstr "Фильтры JSON для применения при импорте (необязательно) Например: {\"email\": \"admin@example.com\"}"
+
+#. Description of the 'Recipient Data' (Code) field in DocType 'WhatsApp
+#. Recipient'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient/whatsapp_recipient.json
+msgid "JSON formatted data for message variables"
+msgstr "Данные в формате JSON для переменных сообщений"
 
 #. Label of the label (Data) field in DocType 'WhatsApp Message'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
@@ -507,17 +629,43 @@ msgstr "Код языка"
 msgid "Last Modified Date"
 msgstr "Дата последнего изменения"
 
+#. Description of the 'Scheduled Time' (Datetime) field in DocType 'Bulk
+#. WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.json
+msgid "Leave empty to send immediately after submission"
+msgstr "Оставьте пустым, чтобы отправить сразу после отправки"
+
+#. Label of the list_name (Data) field in DocType 'WhatsApp Recipient List'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.json
+msgid "List Name"
+msgstr "Название списка"
+
 #. Option for the 'Category' (Select) field in DocType 'WhatsApp Templates'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
 msgid "MARKETING"
 msgstr "MARKETING"
+
+#. Description of the 'Template' (Link) field in DocType 'Bulk WhatsApp
+#. Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.json
+msgid "Make sure that Template variables are same as Recipient data fields"
+msgstr "Убедитесь, что переменные шаблона совпадают с полями данных получателя"
 
 #. Option for the 'Message Type' (Select) field in DocType 'WhatsApp Message'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
 msgid "Manual"
 msgstr "Вручную"
 
+#. Description of the 'Import Limit' (Int) field in DocType 'WhatsApp Recipient
+#. List'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.json
+msgid "Maximum number of records to import (optional)"
+msgstr "Максимальное количество записей для импорта (необязательно)"
+
+#. Label of the section_message (Section Break) field in DocType 'Bulk WhatsApp
+#. Message'
 #. Label of the message (HTML Editor) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.json
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
 msgid "Message"
 msgstr "Сообщение"
@@ -527,19 +675,38 @@ msgstr "Сообщение"
 msgid "Message ID"
 msgstr "ID сообщения"
 
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.js:33
+msgid "Message Progress"
+msgstr "Ход сообщения"
+
 #. Label of the message_type (Select) field in DocType 'WhatsApp Message'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
 msgid "Message Type"
 msgstr "Тип сообщения"
 
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.py:28
-msgid "Message text is required for non-template messages"
-msgstr "Текст сообщения требуется для нешаблонных сообщений"
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.py:27
+msgid "Message content is required"
+msgstr "Содержание сообщения обязательно"
 
 #. Label of the meta_data (JSON) field in DocType 'WhatsApp Notification Log'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification_log/whatsapp_notification_log.json
 msgid "Meta Data"
 msgstr "Метаданные"
+
+#. Label of the mobile_number (Data) field in DocType 'WhatsApp Recipient'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient/whatsapp_recipient.json
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.js:44
+msgid "Mobile Number"
+msgstr "Мобильный"
+
+#. Label of the mobile_field (Data) field in DocType 'WhatsApp Recipient List'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.json
+msgid "Mobile Number Field"
+msgstr "Поле номера мобильного телефона"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.js:51
+msgid "Mobile Number is required"
+msgstr "Номер мобильного телефона обязателен"
 
 #. Description of the 'Field Name' (Data) field in DocType 'WhatsApp
 #. Notification'
@@ -549,7 +716,6 @@ msgstr "Поле номера мобильного телефона"
 
 #. Description of the 'TO ' (Data) field in DocType 'WhatsApp Message'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
-#: frappe_whatsapp/public/js/frappe_whatsapp.js:26
 msgid "Mobile number with country code"
 msgstr "Номер мобильного телефона с кодом страны"
 
@@ -565,7 +731,12 @@ msgstr "Ежемесячно"
 msgid "Monthly Long"
 msgstr "Длительно ежемесячно"
 
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.js:58
+#. Label of the name_field (Data) field in DocType 'WhatsApp Recipient List'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.json
+msgid "Name Field"
+msgstr "Поле имени"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.js:61
 msgid "No alerts for today"
 msgstr "Сегодня нет оповещений"
 
@@ -591,50 +762,89 @@ msgstr "Код (OTP)"
 msgid "Outgoing"
 msgstr "Исходящие"
 
+#. Option for the 'Status' (Select) field in DocType 'Bulk WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.json
+msgid "Partially Failed"
+msgstr "Частично не удалось"
+
 #. Label of the phone_id (Data) field in DocType 'WhatsApp Settings'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
 msgid "Phone ID"
 msgstr "Phone ID"
 
-#. Label of the primary_dns (Data) field in DocType 'WhatsApp Settings'
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
-msgid "Primary DNS Server"
-msgstr "Основной DNS-сервер"
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.js:60
+msgid "Please add at least one recipient"
+msgstr "Пожалуйста, добавьте хотя бы одного получателя"
 
-#. Option for the 'Connection Type' (Select) field in DocType 'WhatsApp
-#. Settings'
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
-msgid "Proxy"
-msgstr "Прокси"
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.js:75
+msgid "Please enter message content"
+msgstr "Пожалуйста, введите содержание сообщения"
 
-#. Label of the proxy_password (Password) field in DocType 'WhatsApp Settings'
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
-msgid "Proxy Password"
-msgstr "Пароль прокси-сервера"
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.js:5
+msgid "Please select a DocType and Mobile Field before importing"
+msgstr "Пожалуйста, выберите тип документа и мобильное поле перед импортом"
 
-#. Label of the proxy_settings_section (Section Break) field in DocType
-#. 'WhatsApp Settings'
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
-msgid "Proxy Settings"
-msgstr "Настройки прокси"
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.js:65
+msgid "Please select a recipient list"
+msgstr "Пожалуйста, выберите список получателей"
 
-#. Label of the proxy_url (Data) field in DocType 'WhatsApp Settings'
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
-msgid "Proxy URL"
-msgstr "URL прокси-сервера"
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.js:70
+msgid "Please select a template"
+msgstr "Выберите шаблон"
 
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.py:83
-msgid "Proxy URL contains invalid characters."
-msgstr "URL-адрес прокси содержит недопустимые символы."
+#. Label of the profile_name (Data) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "Profile Name"
+msgstr "Имя профиля"
 
-#. Label of the proxy_username (Data) field in DocType 'WhatsApp Settings'
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
-msgid "Proxy Username"
-msgstr "Имя пользователя прокси-сервера"
+#. Option for the 'Status' (Select) field in DocType 'Bulk WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.json
+msgid "Queued"
+msgstr "В очереди"
 
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.py:143
-msgid "Proxy credentials contain invalid characters."
-msgstr "Учетные данные прокси содержат недопустимые символы."
+#. Label of the recipient_count (Int) field in DocType 'Bulk WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.json
+msgid "Recipient Count"
+msgstr "Количество получателей"
+
+#. Label of the recipient_data (Code) field in DocType 'WhatsApp Recipient'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient/whatsapp_recipient.json
+msgid "Recipient Data"
+msgstr "Данные получателя"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.js:46
+msgid "Recipient Data (JSON)"
+msgstr "Данные получателя (JSON)"
+
+#. Option for the 'Recipient Type' (Select) field in DocType 'Bulk WhatsApp
+#. Message'
+#. Label of the recipient_list (Link) field in DocType 'Bulk WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.json
+msgid "Recipient List"
+msgstr "Список получателей"
+
+#. Label of the recipient_name (Data) field in DocType 'WhatsApp Recipient'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient/whatsapp_recipient.json
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.js:45
+msgid "Recipient Name"
+msgstr "Имя получателя"
+
+#. Label of the recipient_type (Select) field in DocType 'Bulk WhatsApp
+#. Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.json
+msgid "Recipient Type"
+msgstr "Тип получателя"
+
+#. Label of the section_recipients (Section Break) field in DocType 'Bulk
+#. WhatsApp Message'
+#. Label of the recipients (Table) field in DocType 'Bulk WhatsApp Message'
+#. Label of the section_recipients (Section Break) field in DocType 'WhatsApp
+#. Recipient List'
+#. Label of the recipients (Table) field in DocType 'WhatsApp Recipient List'
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.json
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.json
+msgid "Recipients"
+msgstr "Получатели"
 
 #. Label of the date_changed (Select) field in DocType 'WhatsApp Notification'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
@@ -667,6 +877,10 @@ msgstr "Ответить"
 msgid "Reply To Message ID"
 msgstr "Ответ на сообщение"
 
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.js:43
+msgid "Retry Failed Messages"
+msgstr "Повторное прохождение неудачных сообщений"
+
 #. Label of the sample (Attach) field in DocType 'WhatsApp Templates'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
 msgid "Sample"
@@ -677,6 +891,18 @@ msgstr "Образец"
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
 msgid "Sample Values"
 msgstr "Образцовые значения"
+
+#. Description of the 'Import Recipients' (Button) field in DocType 'WhatsApp
+#. Recipient List'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.json
+msgid "Save form before importing"
+msgstr "Сохраните форму перед импортом"
+
+#. Label of the scheduled_time (Datetime) field in DocType 'Bulk WhatsApp
+#. Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.json
+msgid "Scheduled Time"
+msgstr "Запланированное время"
 
 #. Option for the 'Notification Type' (Select) field in DocType 'WhatsApp
 #. Notification'
@@ -689,26 +915,13 @@ msgstr "Планировщик событий"
 msgid "Script Manager"
 msgstr "Менеджер скриптов"
 
-#. Label of the secondary_dns (Data) field in DocType 'WhatsApp Settings'
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
-msgid "Secondary DNS Server"
-msgstr "Вторичный DNS-сервер"
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.py:37
+msgid "Selected recipient list has no recipients"
+msgstr "В списке выбранных получателей нет получателей"
 
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.js:77
-msgid "Security Warning"
-msgstr "Предупреждение о безопасности"
-
-#: frappe_whatsapp/public/js/frappe_whatsapp.js:47
-msgid "Send"
-msgstr "Отправить"
-
-#: frappe_whatsapp/public/js/frappe_whatsapp.js:86
-msgid "Send WhatsApp"
-msgstr "Отправить WhatsApp"
-
-#: frappe_whatsapp/public/js/frappe_whatsapp.js:45
-msgid "Send WhatsApp Message"
-msgstr "Отправить WhatsApp Сообщение"
+#: frappe_whatsapp/public/js/frappe_whatsapp.js:9
+msgid "Send To Whatsapp"
+msgstr "Отправить в Whatsapp"
 
 #. Description of the 'Days Before or After' (Int) field in DocType 'WhatsApp
 #. Notification'
@@ -716,22 +929,39 @@ msgstr "Отправить WhatsApp Сообщение"
 msgid "Send days before or after the reference date"
 msgstr "Отправить дней до или после контрольной даты"
 
-#. Option for the 'Connection Type' (Select) field in DocType 'WhatsApp
-#. Settings'
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
-msgid "Standard"
-msgstr "Стандартный"
+#. Label of the sent_count (Int) field in DocType 'Bulk WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.json
+msgid "Sent Count"
+msgstr "Количество отправленных"
 
+#. Label of the property_section (Section Break) field in DocType 'WhatsApp
+#. Notification'
+#. Label of the set_property_after_alert (Select) field in DocType 'WhatsApp
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Set Property After Alert"
+msgstr "Установка свойств после оповещения"
+
+#. Label of the section_status (Section Break) field in DocType 'Bulk WhatsApp
+#. Message'
+#. Label of the status (Select) field in DocType 'Bulk WhatsApp Message'
 #. Label of the status (Data) field in DocType 'WhatsApp Message'
 #. Label of the status (Data) field in DocType 'WhatsApp Templates'
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.json
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
+#: frappe_whatsapp/frappe_whatsapp/report/bulk_whatsapp_status/bulk_whatsapp_status.js:17
 msgid "Status"
 msgstr "Статус"
 
+#: frappe_whatsapp/public/js/frappe_whatsapp.js:65
+msgid "Successfully Sent to: "
+msgstr "Успешно отправлено в:"
+
 #. Name of a role
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.json
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification_log/whatsapp_notification_log.json
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.json
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
 msgid "System Manager"
@@ -752,16 +982,17 @@ msgstr "Кому "
 msgid "TRANSACTIONAL"
 msgstr "TRANSACTIONAL"
 
+#. Label of the template (Link) field in DocType 'Bulk WhatsApp Message'
 #. Label of the template (Link) field in DocType 'WhatsApp Message'
 #. Option for the 'Message Type' (Select) field in DocType 'WhatsApp Message'
 #. Label of the template (Link) field in DocType 'WhatsApp Notification'
 #. Label of the template (Data) field in DocType 'WhatsApp Notification Log'
 #. Label of the template (Code) field in DocType 'WhatsApp Templates'
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.json
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification_log/whatsapp_notification_log.json
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.json
-#: frappe_whatsapp/public/js/frappe_whatsapp.js:29
 msgid "Template"
 msgstr "Шаблон"
 
@@ -787,21 +1018,24 @@ msgstr "Название шаблона"
 msgid "Template Parameters"
 msgstr "Параметры шаблона"
 
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_templates/whatsapp_templates.py:304
-msgid "Templates synchronized successfully. Added {0} new, updated {1} existing."
-msgstr "Шаблоны успешно синхронизированы. Добавлено {0} новых, обновлено {1} существующих."
+#. Label of the template_variables (Code) field in DocType 'Bulk WhatsApp
+#. Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.json
+msgid "Template Variables"
+msgstr "Переменные шаблона"
 
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.js:7
-msgid "Test Connection"
-msgstr "Тест подключения"
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.js:75
+msgid "Test recipient added"
+msgstr "Тестовый получатель добавлен"
 
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.js:10
-msgid "Testing connection..."
-msgstr "Тестирование подключения..."
+#. Label of the title (Data) field in DocType 'Bulk WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.json
+msgid "Title"
+msgstr "Заголовок"
 
-#: frappe_whatsapp/public/js/frappe_whatsapp.js:22
-msgid "To"
-msgstr "Кому"
+#: frappe_whatsapp/frappe_whatsapp/report/bulk_whatsapp_status/bulk_whatsapp_status.js:11
+msgid "To Date"
+msgstr "Дата: до"
 
 #. Label of the token (Password) field in DocType 'WhatsApp Settings'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
@@ -829,14 +1063,26 @@ msgstr "UTILITY"
 msgid "Upload the file as public. Whatsapp cannot access the private file."
 msgstr "Загрузите файл как публичный. Whatsapp не сможет получить доступ к приватному файлу."
 
+#. Label of the use_template (Check) field in DocType 'Bulk WhatsApp Message'
 #. Label of the use_template (Check) field in DocType 'WhatsApp Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.json
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
 msgid "Use Template"
 msgstr "Использовать шаблон"
 
-#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.js:79
-msgid "Using custom DNS will disable SSL certificate verification. This may pose security risks. Use this feature only if you understand the implications."
-msgstr "Использование пользовательских DNS отключает проверку сертификата SSL. Это может представлять угрозу безопасности. Используйте эту функцию только в том случае, если Вы понимаете ее последствия."
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.js:84
+msgid "Validate Recipients"
+msgstr "Проверка получателей"
+
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.js:114
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.js:120
+msgid "Validation Results"
+msgstr "Результаты валидации"
+
+#. Label of the property_value (Data) field in DocType 'WhatsApp Notification'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
+msgid "Value To Be Set"
+msgstr "Устанавливаемое значение"
 
 #. Label of the version (Data) field in DocType 'WhatsApp Settings'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
@@ -865,6 +1111,12 @@ msgstr "Еженедельные длинные"
 msgid "WhatsApp API request failed: {}"
 msgstr "Запрос API WhatsApp завершился неудачей: {}"
 
+#. Name of a role
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.json
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.json
+msgid "WhatsApp Manager"
+msgstr "Менеджер WhatsApp"
+
 #. Name of a DocType
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
 msgid "WhatsApp Message"
@@ -884,6 +1136,16 @@ msgstr "Уведомление WhatsApp"
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification_log/whatsapp_notification_log.json
 msgid "WhatsApp Notification Log"
 msgstr "Журнал уведомлений WhatsApp"
+
+#. Name of a DocType
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient/whatsapp_recipient.json
+msgid "WhatsApp Recipient"
+msgstr "Получатель WhatsApp"
+
+#. Name of a DocType
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_recipient_list/whatsapp_recipient_list.json
+msgid "WhatsApp Recipient List"
+msgstr "Список получателей WhatsApp"
 
 #. Name of a DocType
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_settings/whatsapp_settings.json
@@ -907,14 +1169,6 @@ msgstr "Шаблон WhatsApp требует наличия документа"
 msgid "WhatsApp Templates"
 msgstr "Шаблоны WhatsApp"
 
-#: frappe_whatsapp/public/js/frappe_whatsapp.js:62
-msgid "WhatsApp message queued for sending"
-msgstr "Сообщение WhatsApp поставлено в очередь на отправку"
-
-#: frappe_whatsapp/public/js/frappe_whatsapp.js:106
-msgid "WhatsApp message sent successfully"
-msgstr "Сообщение WhatsApp успешно отправлено"
-
 #. Option for the 'Event Frequency' (Select) field in DocType 'WhatsApp
 #. Notification'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_notification/whatsapp_notification.json
@@ -925,6 +1179,12 @@ msgstr "Ежегодно"
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
 msgid "audio"
 msgstr "аудио"
+
+#. Label of the bulk_message_reference (Data) field in DocType 'WhatsApp
+#. Message'
+#: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
+msgid "bulk_message_reference"
+msgstr "bulk_message_reference"
 
 #. Option for the 'Content Type' (Select) field in DocType 'WhatsApp Message'
 #: frappe_whatsapp/frappe_whatsapp/doctype/whatsapp_message/whatsapp_message.json
@@ -971,3 +1231,6 @@ msgstr "текст"
 msgid "video"
 msgstr "видео"
 
+#: frappe_whatsapp/frappe_whatsapp/doctype/bulk_whatsapp_message/bulk_whatsapp_message.py:135
+msgid "{0} messages have been requeued for sending"
+msgstr "{0} сообщения были повторно отправлены"
